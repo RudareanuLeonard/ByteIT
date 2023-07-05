@@ -49,12 +49,12 @@ class CompetitionMatch
         return $this;
     }
 
-    public function getWinnerId(): ?Team
+    public function getWinnerId(): ?int
     {
         return $this->winner_id;
     }
 
-    public function setWinnerId(?Team $winner_id): static
+    public function setWinnerId(?int $winner_id): static
     {
         $this->winner_id = $winner_id;
 
