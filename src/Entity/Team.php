@@ -24,12 +24,17 @@ class Team
     #[ORM\OneToOne(mappedBy: 'winner_id', cascade: ['persist', 'remove'])]
     private ?CompetitionMatch $updateField = null;
 
-    #[ORM\ManyToMany(targetEntity: MatchTeam::class, mappedBy: 'team_id')]
-    private Collection $update_field_team_id;
+    #[ORM\ManyToMany(targetEntity: CompetitionMatch::class, inversedBy: 'teams')]
+    private Collection $matches;
+
+    #[ORM\Column]
+    private ?int $points = null;
+
 
     public function __construct()
     {
         $this->update_field_team_id = new ArrayCollection();
+        $this->matches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,30 +88,50 @@ class Team
         return $this;
     }
 
-    /**
-     * @return Collection<int, MatchTeam>
-     */
+//    /**
+//     * @return Collection<int, MatchTeam>
+//     */
     public function getUpdateFieldTeamId(): Collection
     {
         return $this->update_field_team_id;
     }
 
-    public function addUpdateFieldTeamId(MatchTeam $updateFieldTeamId): static
+    /**
+     * @return Collection<int, CompetitionMatch>
+     */
+    public function getMatches(): Collection
     {
-        if (!$this->update_field_team_id->contains($updateFieldTeamId)) {
-            $this->update_field_team_id->add($updateFieldTeamId);
-            $updateFieldTeamId->addTeamId($this);
+        return $this->matches;
+    }
+
+    public function addMatch(CompetitionMatch $match): static
+    {
+        if (!$this->matches->contains($match)) {
+            $this->matches->add($match);
         }
 
         return $this;
     }
 
-    public function removeUpdateFieldTeamId(MatchTeam $updateFieldTeamId): static
+    public function removeMatch(CompetitionMatch $match): static
     {
-        if ($this->update_field_team_id->removeElement($updateFieldTeamId)) {
-            $updateFieldTeamId->removeTeamId($this);
-        }
+        $this->matches->removeElement($match);
 
         return $this;
     }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): static
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompetitionMatchRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,8 +22,15 @@ class CompetitionMatch
     #[ORM\OneToOne(inversedBy: 'updateField', cascade: ['persist', 'remove'])]
     private ?Team $winner_id = null;
 
-    #[ORM\OneToOne(mappedBy: 'match_id', cascade: ['persist', 'remove'])]
-    private ?MatchTeam $updateField = null;
+    #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'matches')]
+    private Collection $teams;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -52,20 +61,33 @@ class CompetitionMatch
         return $this;
     }
 
-    public function getUpdateField(): ?MatchTeam
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
     {
-        return $this->updateField;
+        return $this->teams;
     }
 
-    public function setUpdateField(MatchTeam $updateField): static
+    public function addTeam(Team $team): static
     {
-        // set the owning side of the relation if necessary
-        if ($updateField->getMatchId() !== $this) {
-            $updateField->setMatchId($this);
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+            $team->addMatch($this);
         }
-
-        $this->updateField = $updateField;
 
         return $this;
     }
+
+    public function removeTeam(Team $team): static
+    {
+        if ($this->teams->removeElement($team)) {
+            $team->removeMatch($this);
+        }
+
+        return $this;
+    }
+
+
+
 }
