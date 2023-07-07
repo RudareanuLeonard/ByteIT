@@ -51,7 +51,7 @@ class CompetitionMatchController extends AbstractController
     #[Route('/{id}/edit', name: 'app_competition_match_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CompetitionMatch $competitionMatch, CompetitionMatchRepository $competitionMatchRepository): Response
     {
-        $form = $this->createForm(CompetitionMatchType::class, $competitionMatch);
+        $form = $this->createForm(CompetitionMatchTypeEdit::class, $competitionMatch);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
