@@ -22,12 +22,14 @@ class CompetitionMatch
     #[ORM\OneToOne(inversedBy: 'updateField', cascade: ['persist', 'remove'])]
     private ?Team $winner_id = null;
 
-    #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'matches')]
-    private Collection $teams;
+
+    #[ORM\OneToMany(targetEntity: "TeamCompetitionMatch", mappedBy: "id")]
+    private ?Collection $teamCompetitionMatch = null;
+
 
     public function __construct()
     {
-        $this->teams = new ArrayCollection();
+        $this->teamCompetitionMatch = new ArrayCollection();
     }
 
 
@@ -64,25 +66,25 @@ class CompetitionMatch
     /**
      * @return Collection<int, Team>
      */
-    public function getTeams(): Collection
+    public function getTeamCompetitionMatch(): Collection
     {
-        return $this->teams;
+        return $this->teamCompetitionMatch;
     }
 
-    public function addTeam(Team $team): static
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams->add($team);
-            $team->addMatch($this);
-        }
+//    public function addTeamCompetitionMatch(Team $teamCompetio): static
+//    {
+//        if (!$this->teams->contains($team)) {
+//            $this->teams->add($team);
+//            $team->addMatch($this);
+//        }
+//
+//        return $this;
+//    }
 
-        return $this;
-    }
-
-    public function removeTeam(Team $team): static
+    public function removeTeamCompetitionMatch(Team $teamCompetitionMatch): static
     {
-        if ($this->teams->removeElement($team)) {
-            $team->removeMatch($this);
+        if ($this->teamCompetitionMatch->removeElement($this->teamCompetitionMatch)) {
+            $teamCompetitionMatch->removeMatch($this);
         }
 
         return $this;

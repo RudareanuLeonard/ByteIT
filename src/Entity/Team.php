@@ -24,11 +24,12 @@ class Team
     #[ORM\OneToOne(mappedBy: 'winner_id', cascade: ['persist', 'remove'])]
     private ?CompetitionMatch $updateField = null;
 
-    #[ORM\ManyToMany(targetEntity: CompetitionMatch::class, inversedBy: 'teams')]
-    private Collection $matches;
 
-    #[ORM\Column]
-    private ?int $points = null;
+
+
+    #[ORM\OneToMany(targetEntity: "TeamCompetitionMatch", mappedBy: "id")]
+    private ?Collection $teamCompetitionMatch = null;
+
 
 
     public function __construct()
@@ -120,17 +121,7 @@ class Team
         return $this;
     }
 
-    public function getPoints(): ?int
-    {
-        return $this->points;
-    }
 
-    public function setPoints(int $points): static
-    {
-        $this->points = $points;
-
-        return $this;
-    }
 
     public function __toString(): string
     {
