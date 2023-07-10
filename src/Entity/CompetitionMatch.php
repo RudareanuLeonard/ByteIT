@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CompetitionMatchRepository::class)]
 class CompetitionMatch
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,14 +31,15 @@ class CompetitionMatch
     public function __construct()
     {
         $this->teamCompetitionMatch = new ArrayCollection();
-    }
 
+    }
 
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getStartDate(): ?\DateTimeInterface
     {

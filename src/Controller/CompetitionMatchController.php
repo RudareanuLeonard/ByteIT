@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\CompetitionMatch;
+use App\Entity\TeamCompetitionMatch;
 use App\Form\CompetitionMatchType;
 use App\Repository\CompetitionMatchRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/competition/match')]
 class CompetitionMatchController extends AbstractController
 {
+
+
     #[Route('/', name: 'app_competition_match_index', methods: ['GET'])]
     public function index(CompetitionMatchRepository $competitionMatchRepository): Response
     {
@@ -30,6 +35,13 @@ class CompetitionMatchController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $competitionMatchRepository->save($competitionMatch, true);
+           // get id and then create 2 entries in additional table
+            $match_id = $competitionMatch->getId();
+//            $this->addFlash(
+//                'notice',
+//                'Your changes were saved!'
+//            );
+//
 
             return $this->redirectToRoute('app_competition_match_index', [], Response::HTTP_SEE_OTHER);
         }
