@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: CompetitionMatchRepository::class)]
 class CompetitionMatch
 {
@@ -92,6 +93,16 @@ class CompetitionMatch
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return "fsadfs";
+    }
+
+
+//    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+//    {
+//        $metadata->addPropertyConstraint('teamCompetitionMatch', new Assert\Unique());
+//    }
 
 
 }

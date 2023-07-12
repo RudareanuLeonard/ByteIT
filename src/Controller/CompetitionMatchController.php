@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\CompetitionMatch;
+use App\Entity\Team;
 use App\Entity\TeamCompetitionMatch;
 use App\Form\CompetitionMatchType;
 use App\Repository\CompetitionMatchRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 #[Route('/competition/match')]
 class CompetitionMatchController extends AbstractController
@@ -27,21 +30,62 @@ class CompetitionMatchController extends AbstractController
     }
 
     #[Route('/new', name: 'app_competition_match_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CompetitionMatchRepository $competitionMatchRepository): Response
+    public function new(Request $request, CompetitionMatchRepository $competitionMatchRepository, EntityManagerInterface $entityManager): Response
     {
         $competitionMatch = new CompetitionMatch();
         $form = $this->createForm(CompetitionMatchType::class, $competitionMatch);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $competitionMatchRepository->save($competitionMatch, true);
-           // get id and then create 2 entries in additional table
-            $match_id = $competitionMatch->getId();
-//            $this->addFlash(
-//                'notice',
-//                'Your changes were saved!'
-//            );
+//            print_r($request->request->all());
+
+            $params = $request->request->all();
+
+//            print("<pre>".print_r($params,true)."</pre>");
+
 //
+//            echo"<br>";
+//            echo"<br>";
+//            echo"<br>";
+//            print_r(var_dump($params["competition_match"]["team1"]));
+//            die();
+
+
+            $competitionMatchRepository->save($competitionMatch, true);
+//            get id and then create 2 entries in additional table
+            $match_id = $competitionMatch->getId();
+            $team1 = $params["competition_match"]["team1"];
+            echo "TEAM 1 = ".$team1;
+            $team2 = $params["competition_match"]["team2"];
+
+            $team1Obj = $entityManager->find(Team::class, $team1);
+            $team2Obj = $entityManager->find(Team::class, $team2);
+
+            //daca exista => insert
+
+            if($team1Obj and $team2Obj){ //if both obj exists, then we can insert
+
+                $teamCompetitionMatch1 = new TeamCompetitionMatch();
+                $this->addFlash('success','ID = '.$match_id);
+
+//            print("<pre>".print_r($teamCompetitionMatch->setTeams($team1Obj),true)."</pre>");
+//            die();
+//            $teamCompetitionMatch->setMatchId($match_id);
+                $teamCompetitionMatch1->setMatches($competitionMatch);
+                $teamCompetitionMatch1->setTeams($team1Obj);
+                $teamCompetitionMatch1->setPoints(10);
+
+                $teamCompetitionMatch2 = new TeamCompetitionMatch();
+                $teamCompetitionMatch2->setMatches($competitionMatch);
+                $teamCompetitionMatch2->setTeams($team2Obj);
+                $teamCompetitionMatch2->setPoints(10);
+
+                $entityManager->persist($teamCompetitionMatch1);
+                $entityManager->persist($teamCompetitionMatch2);
+                $entityManager->flush();
+
+            }
+
 
             return $this->redirectToRoute('app_competition_match_index', [], Response::HTTP_SEE_OTHER);
         }

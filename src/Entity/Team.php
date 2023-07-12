@@ -6,7 +6,9 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
 {
@@ -51,6 +53,12 @@ class Team
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public  function setId(int $id){
+        $this->id = $id;
 
         return $this;
     }
@@ -127,6 +135,26 @@ class Team
     {
         return $this->getName();
     }
+
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addPropertyConstraint('name',
+            new Assert\Length(
+                [
+                    'min'=>4,
+                    'max'=>20,
+                    'minMessage' => 'Your team name must be at least {{ limit }} characters long',
+                    'maxMessage' => 'Your team name cannot be longer than {{ limit }} characters'
+                ]
+
+            )
+        );
+
+
+        $metadata->addPropertyConstraint('players', new Assert\Positive());
+    }
+
 
 
 }

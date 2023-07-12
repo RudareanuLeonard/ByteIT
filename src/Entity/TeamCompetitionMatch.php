@@ -17,11 +17,11 @@ class TeamCompetitionMatch{
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: CompetitionMatch::class, inversedBy: 'teams')]
-    private Collection $matches;
+    private CompetitionMatch $matches;
 
 
     #[ORM\ManyToOne(targetEntity: Team::class, inversedBy: 'matches')]
-    private Collection $teams;
+    private Team $teams;
 
     #[ORM\Column]
     private ?int $points = null;
@@ -29,12 +29,29 @@ class TeamCompetitionMatch{
     /**
      * @return Collection
      */
-    public function getTeams(): Collection
+
+    public function __construct()
+    {
+//        $this->update_field_team_id = new ArrayCollection();
+
+    }
+
+
+
+    public function getTeams(): Team
     {
         return $this->teams;
     }
 
 
+//    public function setMatchId($team_id){
+//        $this->matches = $team_id;
+//    }
+
+
+//    public function setTeamId($teamId){
+//        $this->teams["id"] = $teamId;
+//    }
 
     public function getId(): ?int
     {
@@ -53,24 +70,32 @@ class TeamCompetitionMatch{
     }
 
 
-    public function getMatches(): Collection
+    public function setMatches(CompetitionMatch $matches){
+        $this->matches = $matches;
+
+        return $this;
+    }
+
+
+    public function setTeams(Team $teams){
+        $this->teams = $teams;
+
+        return $this;
+    }
+
+
+//    public function setTeamsId(int $teamsId){
+//        $this->teams_id = $teamsId;
+//
+//        return $this;
+//    }
+    public function getMatches(): CompetitionMatch
     {
         return $this->matches;
     }
 
-    public function addMatch(CompetitionMatch $match): static
-    {
-        if (!$this->matches->contains($match)) {
-            $this->matches->add($match);
-        }
 
-        return $this;
-    }
 
-    public function removeMatch(CompetitionMatch $match): static
-    {
-        $this->matches->removeElement($match);
 
-        return $this;
-    }
+
 }

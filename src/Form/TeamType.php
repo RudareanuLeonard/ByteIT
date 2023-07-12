@@ -14,9 +14,9 @@ class TeamType extends AbstractType
         $builder
             ->add('name')
             ->add('players')
-            ->add('points')
+//            ->add('points')
             ->add('updateField')
-            ->add('matches')
+//            ->add('matches')
         ;
     }
 
