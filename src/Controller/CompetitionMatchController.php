@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
+use DateTime;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[Route('/competition/match')]
 class CompetitionMatchController extends AbstractController
@@ -24,6 +26,73 @@ class CompetitionMatchController extends AbstractController
     public function getName(){
         return "nume1";
     }
+
+    public function createDates($teams){
+
+        $dates = array();
+
+        for($i = 0; $i < count($teams) - 2; $i = $i + 1 ){
+            for($j = $i + 1; $j < count($teams) - 1; $j = $j + 1){
+                $team1 = $teams[$i];
+                $team2 = $teams[$j];
+
+                $day = $i + 4 * $j;
+                $month = intdiv($day, 30) + 1;
+
+                if($day >= 30){ //case where day > 30 (impossible)
+                    $month = $month + 1;
+                    $day = $i;
+                }
+
+                $year = 2023;
+                if($month > 12){
+                    $year = $year + 1;
+                    $month = 1;
+                }
+
+                $dateString = $year."-".$month."-".$day;
+                $dateObj = new DateTime($dateString);
+                $dmyFormat = $dateObj->format('Y-m-d');
+
+                array_push($dates, $dmyFormat);
+            }
+        }
+        return $dates;
+    }
+
+
+    public function homeTeams($teams){
+    $homeTeams = array();
+
+        for($i = 0; $i < count($teams) - 2; $i = $i + 1 ){
+            for($j = $i + 1; $j < count($teams) - 1; $j = $j + 1) {
+                $team1 = $teams[$i];
+                $team2 = $teams[$j];
+                array_push($homeTeams, $team1);
+
+            }
+        }
+
+        return $homeTeams;
+    }
+
+
+    public function awayTeams($teams){
+
+        $awayTeams = array();
+
+        for($i = 0; $i < count($teams) - 2; $i = $i + 1 ){
+            for($j = $i + 1; $j < count($teams) - 1; $j = $j + 1) {
+                $team1 = $teams[$i];
+                $team2 = $teams[$j];
+                array_push($awayTeams, $team2);
+
+            }
+        }
+
+        return $awayTeams;
+    }
+
     #[Route('/', name: 'app_competition_match_index', methods: ['GET'])]
     public function index(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -47,6 +116,11 @@ class CompetitionMatchController extends AbstractController
 //        echo print_r($teams);
 
 //        echo $teams[0];
+
+
+        $dates = $this->createDates($teams);
+        $homeTeams = $this->homeTeams(); // SHOULD I DO A DICTIONARY LIKE "homeTeam"->"awayTeam" so I don't iterate 2 times or its ok?
+        $awayTeams = $this->awayTeams();
 
 
 
