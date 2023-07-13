@@ -51,6 +51,8 @@ class CompetitionMatchType extends AbstractType #for _form_new
             ])
 
         ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

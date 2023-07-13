@@ -21,11 +21,39 @@ class CompetitionMatchController extends AbstractController
 {
 
 
+    public function getName(){
+        return "nume1";
+    }
     #[Route('/', name: 'app_competition_match_index', methods: ['GET'])]
-    public function index(CompetitionMatchRepository $competitionMatchRepository): Response
+    public function index(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        if($request->isMethod('POST') && $request->request->has('schedule-matches')){
+            return $this->redirect('http://stackoverflow.com');
+        }
+
+
+
+        $repository = $entityManager->getRepository(Team::class);
+        $products = $repository->findAll();
+//        print_r($products);
+
+        $teams = array();
+        foreach ($products as $product) {
+            array_push( $teams,$product->getName());
+        }
+
+
+//        echo print_r($teams);
+
+//        echo $teams[0];
+
+
+
+
         return $this->render('competition_match/index.html.twig', [
             'competition_matches' => $competitionMatchRepository->findAll(),
+            "teams"=>$teams
         ]);
     }
 
@@ -131,4 +159,28 @@ class CompetitionMatchController extends AbstractController
 
         return $this->redirectToRoute('app_competition_match_index', [], Response::HTTP_SEE_OTHER);
     }
+
+//    #[Route('/', name: 'app_competition_match_schedule_matches', methods: ['GET, POST'])]
+//    public function scheduleMatches(CompetitionMatchRepository $competitionMatchRepository, EntityManagerInterface $entityManager): Response
+//    {
+//        $repository = $entityManager->getRepository(Team::class);
+//        $products = $repository->findAll();
+////        print_r($products);
+//
+//        $teams = array();
+//        foreach ($products as $product) {
+//            array_push( $teams,$product->getName());
+//        }
+//
+////        echo print_r($teams);
+//
+//        echo $teams[0];
+//
+//
+//
+//    }
+
+
+
+
 }

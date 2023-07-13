@@ -105,4 +105,8 @@ class CompetitionMatch
 //    }
 
 
+    public function getName(){
+        return "nume1";
+    }
+
 }
