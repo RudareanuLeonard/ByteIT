@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
             $team = new Team();
             $team->setName("Team".chr($i));
             $team->setPlayers(rand(1,5));
-            $team->setPoints(rand(0,20));
+//            $team->setPoints(rand(0,20));
             $manager->persist($team);
         }
 

@@ -54,7 +54,7 @@ class CompetitionMatchController extends AbstractController
                 $dateObj = new DateTime($dateString);
                 $dmyFormat = $dateObj->format('Y-m-d');
 
-                array_push($dates, $dmyFormat);
+                array_push($dates, $dateObj);
             }
         }
         return $dates;
@@ -93,6 +93,87 @@ class CompetitionMatchController extends AbstractController
         return $awayTeams;
     }
 
+
+//    #[Route('/generateMatchesAndInsertInDb', name: 'app_competition_match_index', methods: ['POST'])]
+
+    public function generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, CompetitionMatchRepository $competitionMatchRepository): Response{
+
+        for($i = 0; $i < count($homeTeams); $i = $i + 1){
+            $homeTeam = $homeTeams[$i];
+            $awayTeam = $awayTeams[$i];
+            $date = $dates[$i];
+
+            $competitionMatch = new CompetitionMatch();
+            $competitionMatch->setStartDate($date);
+
+            $competitionMatchRepository->save($competitionMatch, true);
+
+
+        }
+        return new Response('Matches generated and inserted successfully!', Response::HTTP_OK);
+
+    }
+
+
+    public function swap(&$a, &$b){
+        $aux = $a;
+        $a = $b;
+        $b = $aux;
+    }
+
+    public function fasd(&$f){
+        $f = 2;
+//        echo $f;
+    }
+    public function sortByDate(&$dates, &$ids, &$homeTeams, &$awayTeams): void{
+        for($i = 0; $i < count($dates) - 1; $i = $i + 1)
+            for($j = $i + 1; $j < count($dates); $j = $j + 1){
+                    $date1 = $dates[$i];
+                    $date1AsString = $date1->format('Y-m-d');
+                    $date1Day = $date1AsString[8].$date1AsString[9];
+                    $date1Day = intval($date1Day);
+                    $date1Month = $date1AsString[5].$date1AsString[6];
+                    $date1Month = intval($date1Month);
+                    $date1Year = $date1AsString[0].$date1AsString[1].$date1AsString[2].$date1AsString[3];
+                    $date1Year = intval($date1Year);
+//                    echo "DATE 1 --- YEAR = ".$date1Year." MONTH = ".$date1Month." DAY = ".$date1Day."<br>";
+
+                    $date2 =  $dates[$j];
+                    $date2AsString = $date2->format('Y-m-d');
+                    $date2Day = $date2AsString[8].$date2AsString[9];
+                    $date2Day = intval($date2Day);
+                    $date2Month = $date2AsString[5].$date2AsString[6];
+                    $date2Month = intval($date2Month);
+                    $date2Year = $date2AsString[0].$date2AsString[1].$date2AsString[2].$date2AsString[3];
+                    $date2Year = intval($date2Year);
+//                echo "DATE 1 --- YEAR = ".$date2Year." MONTH = ".$date2Month." DAY = ".$date2Day."<br>";
+
+
+                if($date1Year > $date2Year){
+                        $this->swap($dates[$i], $dates[$j]);
+                        $this->swap($ids[$i], $ids[$j]);
+                        $this->swap($homeTeams[$i], $homeTeams[$j]);
+                        $this->swap($awayTeams[$i], $awayTeams[$j]);
+                    }
+                    else if($date1Month > $date2Month and $date1Year == $date2Year){
+                        $this->swap($dates[$i], $dates[$j]);
+                        $this->swap($ids[$i], $ids[$j]);
+                        $this->swap($homeTeams[$i], $homeTeams[$j]);
+                        $this->swap($awayTeams[$i], $awayTeams[$j]);
+                    }
+                    else if($date1Day > $date2Day and $date1Month == $date2Month){
+                        $this->swap($dates[$i], $dates[$j]);
+                        $this->swap($ids[$i], $ids[$j]);
+                        $this->swap($homeTeams[$i], $homeTeams[$j]);
+                        $this->swap($awayTeams[$i], $awayTeams[$j]);
+
+                    }
+
+            }
+
+
+    }
+
     #[Route('/', name: 'app_competition_match_index', methods: ['GET'])]
     public function index(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -101,15 +182,21 @@ class CompetitionMatchController extends AbstractController
             return $this->redirect('http://stackoverflow.com');
         }
 
+        $var = 10;
+        $this->fasd($var);
+        echo $var;
+
+        echo "<br><br>";
 
 
         $repository = $entityManager->getRepository(Team::class);
-        $products = $repository->findAll();
-//        print_r($products);
+        $dbAll = $repository->findAll();
+
+        $ids = array();
 
         $teams = array();
-        foreach ($products as $product) {
-            array_push( $teams,$product->getName());
+        foreach ($dbAll as $dbInfo) {
+            array_push( $teams,$dbInfo->getName());
         }
 
 
@@ -119,15 +206,52 @@ class CompetitionMatchController extends AbstractController
 
 
         $dates = $this->createDates($teams);
-        $homeTeams = $this->homeTeams(); // SHOULD I DO A DICTIONARY LIKE "homeTeam"->"awayTeam" so I don't iterate 2 times or its ok?
-        $awayTeams = $this->awayTeams();
+        $homeTeams = $this->homeTeams($teams); // SHOULD I DO A SOMETHING LIKE "homeTeam"->"awayTeam" so I don't iterate 2 times or its ok?
+        $awayTeams = $this->awayTeams($teams);
+
+//        var_dump($dates[0]->form);
+
+        // get count of competitionMatch DB row
+
+        $competitionMatchDb = $entityManager->getRepository(CompetitionMatch::class);
+        $dbAll = $competitionMatchDb->findAll();
+
+        foreach ($dbAll as $dbInfo) {
+            array_push( $ids,$dbInfo->getId());
+        }
 
 
+        $totalEntries = $competitionMatchDb->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        if($totalEntries == 0) {
+            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+
+//            $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+            return $this->redirect($request->getUri());
+
+        }
+        else{
+            echo($ids[0]."<br>");
+
+
+//        $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+
+//        echo "DAY = ".$this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+
+            $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+        }
 
 
         return $this->render('competition_match/index.html.twig', [
             'competition_matches' => $competitionMatchRepository->findAll(),
-            "teams"=>$teams
+            "ids"=>$ids,
+            "teams"=>$teams,
+            "dates"=>$dates,
+            "homeTeams"=>$homeTeams,
+            "awayTeams"=>$awayTeams
         ]);
     }
 

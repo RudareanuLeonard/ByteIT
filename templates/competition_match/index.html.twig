@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>CompetitionMatch index</h1>
-    <table class="table">
+    <table class="table" id="competition_matches_table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -14,77 +14,59 @@
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="matches">
 
-{#        {% for team in teams %}#}
+
+
+        {% if ids|length > 0 %}
+        {% for i in 0..dates|length-1 %}
+
+            <tr id="tableRow" style="display: none">
+                {% set matchID = ids[i] %}
+            {% set date = dates[i] %}
+            {% set homeTeam = homeTeams[i] %}
+            {% set awayTeam = awayTeams[i] %}
+                <td>{{ matchID }}</td>
+            <td>{{ homeTeam }}</td>
+            <td>{{ awayTeam }}</td>
+            <td>{{ date |date('Y-m-d') }}</td>
+{#            <td>{{ date }}</td>#}
+
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
+        {% endif %}
+
+{#        {% for i in 0..competition_matches|length-1 %}#}
 {#            <tr>#}
-{#                <td>{{ team }}</td>#}
-{#                <td>{{ loop.index }}</td>  loop.index is the current iteration index #}
-{#                <td>{{ loop.index0 }}</td>  loop.index0 is the current iteration index starting from 0 #}
+{#                <td id="competition_match_id">{{ competition_matches.id }}</td>#}
 {#            </tr>#}
 {#        {% endfor %}#}
 
-
-        {% for i in 0..teams|length-2 %}
-            {% for j in i+1..teams|length-1%}
-                {%
-                    set team1 = teams[i]
-                %}
-
-                {%
-                    set team2 = teams[j]
-                %}
-                {%
-                    set day = (i + 4 * j)
-                %}
-                {%
-                set month = (day//30 + 1)
-                %}
-
-                {% if day >= 30 %}
-                    {% set month = month + 1 %}
-                    {% set day = i %}
-                {% endif %}
-
-                {%
-                set year = 2023
-                %}
-                {% if month > 12 %}
-                    {% set year = year + 1 %}
-                    {% set month = 1 %}
-                {% endif %}
-            <tr>
-                <td>{{ team1 }}</td>
-                <td>{{ team2 }}</td>
-                <td>{{ day }}</td>
-                <td>{{ month }}</td>
-                <td>{{ year }}</td>
-            </tr>
-
-        {% endfor %}
-        {% endfor %}
-
-        {% for competition_match in competition_matches %}
-            <tr>
-
-                <td>{{ competition_match.id }}</td>
-                <td>{{ competition_match.getName() }}</td>
-                <td>{{ competition_match.getName() }}</td>
-                <td>{{ competition_match.startDate ? competition_match.startDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_competition_match_show', {'id': competition_match.id}) }}">show</a>
-                    <a href="{{ path('app_competition_match_edit', {'id': competition_match.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
+{#        {% for competition_match in competition_matches %}#}
+{#            <tr>#}
+{#                <td>{{ loop.index }}</td>#}
+{#                <td id="competition_match_id">{{ competition_match.id }}</td>#}
+{#                <td id="competition_match_name_home_team">{{ competition_match.getName() }}</td>#}
+{#                <td id="competition_match_name_away_team">{{ competition_match.getName() }}</td>#}
+{#                <td id="competition_match_start_date">{{ competition_match.startDate ? competition_match.startDate|date('Y-m-d') : '' }}</td>#}
+{#                <td id="competition_match_actions">#}
+{#                    <a href="{{ path('app_competition_match_show', {'id': competition_match.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_competition_match_edit', {'id': competition_match.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="3">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
         </tbody>
     </table>
 
-    <a href="{{ path('app_competition_match_new') }}">Create new</a>
+{#    <a href="{{ path('app_competition_match_new') }}">Create new</a>#}
     <br>
 
 
@@ -92,13 +74,36 @@
 {#    <br>#}
 
 
-    <button type="button" class="btn btn-primary click">Click me!</button>
+    <button type="button" class="btn btn-primary click" id="generateMatchesButton" onclick="hideRows('competition_matches_table')">Click me to generate matches!</button>
+{#    <p id="demo">TEST</p>#}
 
-<script>document.querySelector('.click').addEventListener('click', (e) => {
-        // Do whatever you want
-        e.target.textContent = 'Clicked!';
-    });
-</script>
+{#    <script>#}
+{#        function generateMatches() {#}
+{#            const xhttp = new XMLHttpRequest();#}
+{#            xhttp.onload = function() {#}
+{#                alert("Fadsfasdfasdf");#}
+{#                document.getElementById("demo").innerHTML = "asdfghjk";#}
+{#                console.log("123");#}
+
+{#            }#}
+{#            xhttp.open("GET", "/competition/match/generateMatchesAndInsertInDb");#}
+{#            xhttp.send();#}
+{#        }#}
+{#    </script>#}
+
+
+    <script>
+        var hide = true;
+
+        function hideRows(tableId){
+            alert("FASDF");
+            var t = document.getElementById(tableId);
+            var len = t.rows.length;
+            var rowStyle = "";
+            for(i = 1; i < len; i = i + 1)
+                t.rows[i].style.display = rowStyle;
+        }
+    </script>
 
 
 {% endblock %}
