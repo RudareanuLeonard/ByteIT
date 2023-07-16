@@ -28,6 +28,9 @@ class CompetitionMatch
     #[ORM\OneToMany(targetEntity: "TeamCompetitionMatch", mappedBy: "id")]
     private ?Collection $teamCompetitionMatch = null;
 
+    #[ORM\Column]
+    private ?int $played = null;
+
 
     public function __construct()
     {
@@ -107,6 +110,18 @@ class CompetitionMatch
 
     public function getName(){
         return "nume1";
+    }
+
+    public function getPlayed(): ?int
+    {
+        return $this->played;
+    }
+
+    public function setPlayed(int $played): static
+    {
+        $this->played = $played;
+
+        return $this;
     }
 
 }
