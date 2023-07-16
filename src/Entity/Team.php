@@ -160,12 +160,6 @@ class Team
 
         $metadata->addPropertyConstraint('players', new Assert\Positive());
     }
-
-    public function getGoalsScored(): ?int
-    {
-        return $this->goals_scored;
-    }
-
     public function setGoalsScored(int $goals_scored): static
     {
         $this->goals_scored = $goals_scored;
@@ -173,10 +167,6 @@ class Team
         return $this;
     }
 
-    public function getGoalsConceded(): ?int
-    {
-        return $this->goals_conceded;
-    }
 
     public function setGoalsConceded(int $goals_conceded): static
     {

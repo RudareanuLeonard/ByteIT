@@ -96,15 +96,19 @@ class CompetitionMatchController extends AbstractController
 
 //    #[Route('/generateMatchesAndInsertInDb', name: 'app_competition_match_index', methods: ['POST'])]
 
-    public function generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, CompetitionMatchRepository $competitionMatchRepository): Response{
+    public function generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates,CompetitionMatchRepository $competitionMatchRepository): Response{
 
         for($i = 0; $i < count($homeTeams); $i = $i + 1){
             $homeTeam = $homeTeams[$i];
             $awayTeam = $awayTeams[$i];
             $date = $dates[$i];
+            $played = 0;
+            $homeTeamGoals = random_int(0, 5);
+            $awayTeamGoals = random_int(0, 5);
 
             $competitionMatch = new CompetitionMatch();
             $competitionMatch->setStartDate($date);
+            $competitionMatch->setPlayed(0);
 
             $competitionMatchRepository->save($competitionMatch, true);
 
@@ -120,11 +124,11 @@ class CompetitionMatchController extends AbstractController
         $a = $b;
         $b = $aux;
     }
-
-    public function fasd(&$f){
-        $f = 2;
-//        echo $f;
-    }
+//
+//    public function fasd(&$f){
+//        $f = 2;
+////        echo $f;
+//    }
     public function sortByDate(&$dates, &$ids, &$homeTeams, &$awayTeams): void{
         for($i = 0; $i < count($dates) - 1; $i = $i + 1)
             for($j = $i + 1; $j < count($dates); $j = $j + 1){
@@ -178,15 +182,15 @@ class CompetitionMatchController extends AbstractController
     public function index(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        if($request->isMethod('POST') && $request->request->has('schedule-matches')){
-            return $this->redirect('http://stackoverflow.com');
-        }
+//        if($request->isMethod('POST') && $request->request->has('schedule-matches')){
+//            return $this->redirect('http://stackoverflow.com');
+//        }
 
-        $var = 10;
-        $this->fasd($var);
-        echo $var;
+//        $var = 10;
+//        $this->fasd($var);
+//        echo $var;
 
-        echo "<br><br>";
+//        echo "<br><br>";
 
 
         $repository = $entityManager->getRepository(Team::class);
@@ -253,73 +257,137 @@ class CompetitionMatchController extends AbstractController
             "homeTeams"=>$homeTeams,
             "awayTeams"=>$awayTeams
         ]);
+
+
+
     }
 
-    #[Route('/new', name: 'app_competition_match_new', methods: ['GET', 'POST'])]
+
+    public function findFirstNotPlayed($played): int{
+        for($i = 0; $i < count($played) - 1; $i = $i + 1)
+            if($played[$i] == 0)
+                return $i;
+
+        return -1;
+    }
+
+    #[Route('/matchdays', name: 'app_competition_match_matchdays', methods: ['GET', 'POST'])]
     public function new(Request $request, CompetitionMatchRepository $competitionMatchRepository, EntityManagerInterface $entityManager): Response
     {
-        $competitionMatch = new CompetitionMatch();
-        $form = $this->createForm(CompetitionMatchType::class, $competitionMatch);
-        $form->handleRequest($request);
+        $repository = $entityManager->getRepository(Team::class);
+        $dbAll = $repository->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-//            print_r($request->request->all());
+        $ids = array();
 
-            $params = $request->request->all();
-
-//            print("<pre>".print_r($params,true)."</pre>");
-
-//
-//            echo"<br>";
-//            echo"<br>";
-//            echo"<br>";
-//            print_r(var_dump($params["competition_match"]["team1"]));
-//            die();
-
-
-            $competitionMatchRepository->save($competitionMatch, true);
-//            get id and then create 2 entries in additional table
-            $match_id = $competitionMatch->getId();
-            $team1 = $params["competition_match"]["team1"];
-            echo "TEAM 1 = ".$team1;
-            $team2 = $params["competition_match"]["team2"];
-
-            $team1Obj = $entityManager->find(Team::class, $team1);
-            $team2Obj = $entityManager->find(Team::class, $team2);
-
-            //daca exista => insert
-
-            if($team1Obj and $team2Obj){ //if both obj exists, then we can insert
-
-                $teamCompetitionMatch1 = new TeamCompetitionMatch();
-                $this->addFlash('success','ID = '.$match_id);
-
-//            print("<pre>".print_r($teamCompetitionMatch->setTeams($team1Obj),true)."</pre>");
-//            die();
-//            $teamCompetitionMatch->setMatchId($match_id);
-                $teamCompetitionMatch1->setMatches($competitionMatch);
-                $teamCompetitionMatch1->setTeams($team1Obj);
-                $teamCompetitionMatch1->setPoints(10);
-
-                $teamCompetitionMatch2 = new TeamCompetitionMatch();
-                $teamCompetitionMatch2->setMatches($competitionMatch);
-                $teamCompetitionMatch2->setTeams($team2Obj);
-                $teamCompetitionMatch2->setPoints(10);
-
-                $entityManager->persist($teamCompetitionMatch1);
-                $entityManager->persist($teamCompetitionMatch2);
-                $entityManager->flush();
-
-            }
-
-
-            return $this->redirectToRoute('app_competition_match_index', [], Response::HTTP_SEE_OTHER);
+        $teams = array();
+        foreach ($dbAll as $dbInfo) {
+            array_push( $teams,$dbInfo->getName());
         }
 
-        return $this->renderForm('competition_match/new.html.twig', [
-            'competition_match' => $competitionMatch,
-            'form' => $form,
+
+        $dates = $this->createDates($teams);
+        $homeTeams = $this->homeTeams($teams); // SHOULD I DO A SOMETHING LIKE "homeTeam"->"awayTeam" so I don't iterate 2 times or its ok?
+        $awayTeams = $this->awayTeams($teams);
+
+        $competitionMatchDb = $entityManager->getRepository(CompetitionMatch::class);
+        $dbAll = $competitionMatchDb->findAll();
+        $played = array();
+
+        foreach ($dbAll as $dbInfo) {
+            array_push( $ids,$dbInfo->getId());
+            array_push($played, $dbInfo->getPlayed());
+        }
+
+        $totalEntries = $competitionMatchDb->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+
+        $homeTeamsGoals = array();
+        $awayTeamsGoals = array();
+
+        var_dump($played);
+//        die();
+
+        if($totalEntries == 0) {
+            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+
+            $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+            return $this->redirect($request->getUri());
+
+        }
+        else{
+//            for($i = 0; $i < count($homeTeams); $i = $i + 1) {
+//                array_push($homeTeamsGoals, random_int(0, 5));
+//                array_push($awayTeamsGoals, random_int(0, 5));
+//            }
+
+            var_dump("ARRAY SUM =".array_sum($played). " PLAYED CNT = ".count($played));
+//            die();
+//            die();
+            $first_unplayed_match = $this->findFirstNotPlayed($played);
+
+            if($first_unplayed_match != -1){
+                for($i = $first_unplayed_match; $i < $first_unplayed_match + 7 and $i < count($played);$i = $i + 1){
+                $played[$i] = 1;
+                $match_id = $ids[$i];
+                echo $i."<br>";
+                $homeTeamsGoals[$i] = random_int(0,5);
+                $awayTeamsGoals[$i] = random_int(0, 5);
+
+                //update played column so we get another values when we reload page
+                    $update = $entityManager->getRepository(CompetitionMatch::class)->find($match_id);
+                    $update->setPlayed(1);
+                    $entityManager->flush();
+
+
+                // also update goals scored/conceded of teams
+                    //update home teams goals
+                    $team_db_updates = $entityManager->getRepository(Team::class)->findBy(['name'=>$homeTeams[$i]]);
+                    echo("HOME TEAMS = ".$homeTeams[$i]."<br>");
+//                    var_dump($team_db_updates[0]);
+//                    die();
+                    $team_db_updates[0]->setGoalsScored($homeTeamsGoals[$i]);
+                    $team_db_updates[0]->setGoalsConceded($awayTeamsGoals[$i]);
+                    $entityManager->flush();
+
+
+                    $team_db_updates = $entityManager->getRepository(Team::class)->findBy(['name'=>$awayTeams[$i]]);
+                    $team_db_updates[0]->setGoalsScored($awayTeamsGoals[$i]);
+                    $team_db_updates[0]->setGoalsConceded($homeTeamsGoals[$i]);
+                    $entityManager->flush();
+
+                }
+                echo "SUM = ".array_sum($played)."<br>";
+//                $first_unplayed_match = $this->findFirstNotPlayed($played);
+            }
+
+//die();
+            echo($ids[0]."<br>");
+
+
+//        $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+
+//        echo "DAY = ".$this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+
+            $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
+        }
+
+
+
+        return $this->render('competition_match/matchdays.html.twig', [
+            'competition_matches' => $competitionMatchRepository->findAll(),
+            "ids"=>$ids,
+            "teams"=>$teams,
+            "played"=>$played,
+            "homeTeams"=>$homeTeams,
+            "awayTeams"=>$awayTeams,
+            "homeTeamsGoals"=>$homeTeamsGoals,
+            "awayTeamsGoals"=>$awayTeamsGoals,
+            "first_unplayed_match"=>$first_unplayed_match
         ]);
+
     }
 
     #[Route('/{id}', name: 'app_competition_match_show', methods: ['GET'])]
@@ -358,26 +426,15 @@ class CompetitionMatchController extends AbstractController
         return $this->redirectToRoute('app_competition_match_index', [], Response::HTTP_SEE_OTHER);
     }
 
-//    #[Route('/', name: 'app_competition_match_schedule_matches', methods: ['GET, POST'])]
-//    public function scheduleMatches(CompetitionMatchRepository $competitionMatchRepository, EntityManagerInterface $entityManager): Response
-//    {
-//        $repository = $entityManager->getRepository(Team::class);
-//        $products = $repository->findAll();
-////        print_r($products);
-//
-//        $teams = array();
-//        foreach ($products as $product) {
-//            array_push( $teams,$product->getName());
-//        }
-//
-////        echo print_r($teams);
-//
-//        echo $teams[0];
-//
-//
-//
-//    }
 
+
+
+//    #[Route('/matchdays', name: 'app_competition_match_matchdays', methods: ['POST'])]
+//
+//    public function matchDay(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response{
+//
+//        return $this->render('competition_match/matchdays.html.twig');
+//    }
 
 
 

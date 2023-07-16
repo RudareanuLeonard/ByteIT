@@ -44,6 +44,13 @@ class CompetitionMatch
         return $this->id;
     }
 
+    public function setPlayed($played){
+        $this->played = $played;
+    }
+
+    public function getPlayed(){
+        return $this->played;
+    }
 
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -112,16 +119,5 @@ class CompetitionMatch
         return "nume1";
     }
 
-    public function getPlayed(): ?int
-    {
-        return $this->played;
-    }
-
-    public function setPlayed(int $played): static
-    {
-        $this->played = $played;
-
-        return $this;
-    }
 
 }
