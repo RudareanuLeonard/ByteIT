@@ -167,12 +167,20 @@ class Team
         return $this;
     }
 
+    public function getGoalsScored(){
+        return $this->goals_scored;
+    }
+
 
     public function setGoalsConceded(int $goals_conceded): static
     {
         $this->goals_conceded = $goals_conceded;
 
         return $this;
+    }
+
+    public function getGoalsConceded(){
+        return $this->goals_conceded;
     }
 
 

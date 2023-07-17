@@ -96,7 +96,7 @@ class CompetitionMatchController extends AbstractController
 
 //    #[Route('/generateMatchesAndInsertInDb', name: 'app_competition_match_index', methods: ['POST'])]
 
-    public function generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates,CompetitionMatchRepository $competitionMatchRepository): Response{
+    public function generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, CompetitionMatchRepository $competitionMatchRepository, EntityManagerInterface $entityManager): Response{
 
         for($i = 0; $i < count($homeTeams); $i = $i + 1){
             $homeTeam = $homeTeams[$i];
@@ -111,6 +111,32 @@ class CompetitionMatchController extends AbstractController
             $competitionMatch->setPlayed(0);
 
             $competitionMatchRepository->save($competitionMatch, true);
+
+            $homeTeamObj = $entityManager->getRepository(Team::class)->findOneBy(['name'=>$homeTeam]);
+//            var_dump($homeTeamObj->getId());
+//            die();
+
+            $awayTeamObj = $entityManager->getRepository(Team::class)->findOneBy(['name'=>$awayTeam]);
+
+
+
+            $teamCompetitionMatch1 = new TeamCompetitionMatch();
+            $teamCompetitionMatch1->setMatches($competitionMatch);
+            $teamCompetitionMatch1->setTeams($homeTeamObj);
+            $teamCompetitionMatch1->setPoints(0);
+
+//            var_dump("TEAM COMP1 = ".$teamCompetitionMatch1);
+//            die();
+
+            $teamCompetitionMatch2 = new TeamCompetitionMatch();
+            $teamCompetitionMatch2->setMatches($competitionMatch);
+            $teamCompetitionMatch2->setTeams($awayTeamObj);
+            $teamCompetitionMatch2->setPoints(0);
+
+            $entityManager->persist($teamCompetitionMatch1);
+            $entityManager->flush();
+            $entityManager->persist($teamCompetitionMatch2);
+            $entityManager->flush();
 
 
         }
@@ -182,16 +208,6 @@ class CompetitionMatchController extends AbstractController
     public function index(CompetitionMatchRepository $competitionMatchRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-//        if($request->isMethod('POST') && $request->request->has('schedule-matches')){
-//            return $this->redirect('http://stackoverflow.com');
-//        }
-
-//        $var = 10;
-//        $this->fasd($var);
-//        echo $var;
-
-//        echo "<br><br>";
-
 
         $repository = $entityManager->getRepository(Team::class);
         $dbAll = $repository->findAll();
@@ -204,9 +220,6 @@ class CompetitionMatchController extends AbstractController
         }
 
 
-//        echo print_r($teams);
-
-//        echo $teams[0];
 
 
         $dates = $this->createDates($teams);
@@ -231,7 +244,7 @@ class CompetitionMatchController extends AbstractController
             ->getSingleScalarResult();
 
         if($totalEntries == 0) {
-            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository, $entityManager);
 
 //            $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
             return $this->redirect($request->getUri());
@@ -311,7 +324,7 @@ class CompetitionMatchController extends AbstractController
 //        die();
 
         if($totalEntries == 0) {
-            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository);
+            $this->generateMatchesAndInsertInDb($homeTeams, $awayTeams, $dates, $competitionMatchRepository, $entityManager);
 
             $this->sortByDate($dates, $ids, $homeTeams, $awayTeams);
             return $this->redirect($request->getUri());
@@ -348,15 +361,47 @@ class CompetitionMatchController extends AbstractController
                     echo("HOME TEAMS = ".$homeTeams[$i]."<br>");
 //                    var_dump($team_db_updates[0]);
 //                    die();
-                    $team_db_updates[0]->setGoalsScored($homeTeamsGoals[$i]);
-                    $team_db_updates[0]->setGoalsConceded($awayTeamsGoals[$i]);
-                    $entityManager->flush();
 
+                    if($team_db_updates[0]->getGoalsScored() == null)
+                        $homeTeamGoalsScoredVal = 0;
+                    else
+                        $homeTeamGoalsScoredVal = $team_db_updates[0]->getGoalsScored();
+
+                    if($team_db_updates[0]->getGoalsConceded() == null)
+                        $homeTeamGoalsConcededVal = 0;
+                    else
+                        $homeTeamGoalsConcededVal = $team_db_updates[0]->getGoalsConceded();
+
+                    $homeTeamId = $team_db_updates[0]->getId();
+                    $team_db_updates[0]->setGoalsScored($homeTeamGoalsScoredVal + $homeTeamsGoals[$i]);
+                    $team_db_updates[0]->setGoalsConceded($homeTeamGoalsConcededVal + $awayTeamsGoals[$i]);
+                    $entityManager->flush();
 
                     $team_db_updates = $entityManager->getRepository(Team::class)->findBy(['name'=>$awayTeams[$i]]);
-                    $team_db_updates[0]->setGoalsScored($awayTeamsGoals[$i]);
-                    $team_db_updates[0]->setGoalsConceded($homeTeamsGoals[$i]);
+                    $awayTeamId = $team_db_updates[0]->getId();
+                    $team_db_updates[0]->setGoalsScored($homeTeamGoalsConcededVal+ $awayTeamsGoals[$i]);
+                    $team_db_updates[0]->setGoalsConceded($homeTeamGoalsScoredVal + $homeTeamsGoals[$i]);
                     $entityManager->flush();
+
+                    //TODO: modify values in aux table by team
+                    //find by matchid and team id
+                    //home team
+//                    die();
+                    $auxTableHomeTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches_id"=>$match_id, "teams_id"=>$homeTeamId]);
+                    $auxTableAwayTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches_id"=>$match_id, "teams_id"=>$awayTeamId]);
+
+                    if($homeTeamsGoals > $awayTeamsGoals){
+                        $auxTableHomeTeam->setPoints(3);
+                        $auxTableAwayTeam->setPoints(0);
+                    }
+                    else if($homeTeamsGoals == $awayTeamsGoals){
+                        $auxTableHomeTeam->setPoints(1);
+                        $auxTableAwayTeam->setPoints(1);
+                    }
+                    else{
+                        $auxTableHomeTeam->setPoints(0);
+                        $auxTableAwayTeam->setPoints(3);
+                    }
 
                 }
                 echo "SUM = ".array_sum($played)."<br>";
