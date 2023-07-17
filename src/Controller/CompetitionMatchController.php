@@ -358,8 +358,8 @@ class CompetitionMatchController extends AbstractController
                 // also update goals scored/conceded of teams
                     //update home teams goals
                     $team_db_updates = $entityManager->getRepository(Team::class)->findBy(['name'=>$homeTeams[$i]]);
-                    echo("HOME TEAMS = ".$homeTeams[$i]."<br>");
-//                    var_dump($team_db_updates[0]);
+//                    echo("HOME TEAMS = ".$homeTeams[$i]."<br>");
+                    var_dump("QAQASDFGH = ".$team_db_updates[0]);
 //                    die();
 
                     if($team_db_updates[0]->getGoalsScored() == null)
@@ -387,8 +387,8 @@ class CompetitionMatchController extends AbstractController
                     //find by matchid and team id
                     //home team
 //                    die();
-                    $auxTableHomeTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches_id"=>$match_id, "teams_id"=>$homeTeamId]);
-                    $auxTableAwayTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches_id"=>$match_id, "teams_id"=>$awayTeamId]);
+                    $auxTableHomeTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches"=>$match_id, "teams"=>$homeTeamId]);
+                    $auxTableAwayTeam = $entityManager->getRepository(TeamCompetitionMatch::class)->findOneBy(["matches"=>$match_id, "teams"=>$awayTeamId]);
 
                     if($homeTeamsGoals > $awayTeamsGoals){
                         $auxTableHomeTeam->setPoints(3);
@@ -398,7 +398,7 @@ class CompetitionMatchController extends AbstractController
                         $auxTableHomeTeam->setPoints(1);
                         $auxTableAwayTeam->setPoints(1);
                     }
-                    else{
+                    else if($homeTeamsGoals < $awayTeamsGoals){
                         $auxTableHomeTeam->setPoints(0);
                         $auxTableAwayTeam->setPoints(3);
                     }

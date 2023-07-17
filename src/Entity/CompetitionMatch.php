@@ -119,5 +119,15 @@ class CompetitionMatch
         return "nume1";
     }
 
+    public function addTeamCompetitionMatch(TeamCompetitionMatch $teamCompetitionMatch): static
+    {
+        if (!$this->teamCompetitionMatch->contains($teamCompetitionMatch)) {
+            $this->teamCompetitionMatch->add($teamCompetitionMatch);
+            $teamCompetitionMatch->setId($this);
+        }
+
+        return $this;
+    }
+
 
 }

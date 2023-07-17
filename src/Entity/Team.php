@@ -44,6 +44,7 @@ class Team
     {
         $this->update_field_team_id = new ArrayCollection();
         $this->matches = new ArrayCollection();
+        $this->teamCompetitionMatch = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +182,36 @@ class Team
 
     public function getGoalsConceded(){
         return $this->goals_conceded;
+    }
+
+    /**
+     * @return Collection<int, TeamCompetitionMatch>
+     */
+    public function getTeamCompetitionMatch(): Collection
+    {
+        return $this->teamCompetitionMatch;
+    }
+
+    public function addTeamCompetitionMatch(TeamCompetitionMatch $teamCompetitionMatch): static
+    {
+        if (!$this->teamCompetitionMatch->contains($teamCompetitionMatch)) {
+            $this->teamCompetitionMatch->add($teamCompetitionMatch);
+            $teamCompetitionMatch->setId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamCompetitionMatch(TeamCompetitionMatch $teamCompetitionMatch): static
+    {
+        if ($this->teamCompetitionMatch->removeElement($teamCompetitionMatch)) {
+            // set the owning side to null (unless already changed)
+            if ($teamCompetitionMatch->getId() === $this) {
+                $teamCompetitionMatch->setId(null);
+            }
+        }
+
+        return $this;
     }
 
 

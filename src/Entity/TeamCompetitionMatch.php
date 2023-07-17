@@ -2,8 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\TeamCompetitionMatchRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
