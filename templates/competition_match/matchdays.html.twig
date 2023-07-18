@@ -8,6 +8,7 @@
 <table class="table" id="competition_matches_table">
     <thead>
     <tr>
+        <th>Match ID</th>
         <th>Home Team</th>
         <th>Away Team</th>
         <th>Score</th>
@@ -26,6 +27,7 @@
                 {% set awayTeam = awayTeams[i] %}
                 {% set homeTeamsGoalsVar = homeTeamsGoals[i] %}
                 {% set awayTeamsGoalsVar = awayTeamsGoals[i] %}
+                <td>{{ ids[i] }}</td>
                 <td>{{ homeTeam }} </td>
                 <td>{{ awayTeam }}</td>
                 <td>{{ homeTeamsGoalsVar }} - {{  awayTeamsGoalsVar }}</td>

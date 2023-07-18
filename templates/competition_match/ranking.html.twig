@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CompetitionMatch index{% endblock %}
+
+{% block body %}
+<h1>Ranking</h1>
+
+<table class="table" id="competition_matches_table">
+    <thead>
+    <tr>
+        <th>Position</th>
+        <th>Team ID</th>
+        <th>Team</th>
+        <th>Points</th>
+        <th>Goals Scored</th>
+        <th>Goals Conceded</th>
+        <th>Goal Difference</th>
+    </tr>
+    </thead>
+
+    <tbody id="matches">
+
+        {% for i in 0..teamsIds|length - 1 %}
+
+                <tr id="tableRow">
+
+                    {% set teamId = teamsIds[i] %}
+                    {% set teamName = teamsNames[i] %}
+                    {% set teamGoalsScored = teamsGoalsScored[i] %}
+                    {% set teamGoalsConceded = teamsIds[i] %}
+                    {% set teamGoalDifference = teamGoalsScored - teamGoalsConceded %}
+                    {% set teamPoints = teamsPoints[i] %}
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ teamId }}</td>
+                    <td>{{ teamName }}</td>
+                    <td>{{ teamPoints }}</td>
+                    <td>{{ teamGoalsScored }}</td>
+                    <td>{{ teamGoalsConceded }}</td>
+                    <td>{{ teamGoalDifference }}</td>
+
+                </tr>
+{#            {% endif %}#}
+        {% endfor %}
+{#    {% else %}#}
+{#        <tr>#}
+{#            <td colspan="3">no records found</td>#}
+{#        </tr>#}
+{#    {% endif %}#}
+
+
+    </tbody>
+
+
+    {% endblock %}
