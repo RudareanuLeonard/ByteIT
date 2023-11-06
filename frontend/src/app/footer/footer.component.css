@@ -1,0 +1,9 @@
+
+footer *{
+  color:var(--white-text-color);
+  background-color: var(--darker-background-color);
+}
+
+footer h3{
+  color: var(--blue-color);
+}

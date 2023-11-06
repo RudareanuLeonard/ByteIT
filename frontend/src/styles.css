@@ -2,6 +2,16 @@
 
 *{
   font-family: "Montserrat", sans-serif;
-  box-sizing: border-box;
-  background: #24252A;
+}
+
+body{
+  background: var(--background-color);
+}
+
+:root{
+  --background-color : #24252A;
+  --darker-background-color : #18191c;
+  --white-text-color : #dcdcdc;
+  --blue-color : #0088a9;
+  --dark-blue-color : #001438;
 }

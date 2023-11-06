@@ -10,8 +10,14 @@ a{
 }
 
 a:hover{
-  color: #0088a9;
+  color: var(--blue-color);
+
 }
+a:active{
+  color: var(--blue-color);
+  border-bottom: 1px solid var(--blue-color);
+}
+
 
 /* HEADER */
 header{
@@ -28,6 +34,7 @@ header{
   display: flex;
   align-items: center;
   justify-content: space-between;
+
 }
 
 .navbar .links{
@@ -43,7 +50,7 @@ header{
 }
 
 .action_btn{
-  background-color: #0088a9;
+  background-color: var(--blue-color);
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -93,6 +100,10 @@ header{
   justify-content: center;
 }
 
+.dropdown_menu a{
+  width: 100%;
+  text-align: center;
+}
 .dropdown_menu .action_btn{
   width: 100%;
   display: flex;
