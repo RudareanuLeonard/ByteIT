@@ -13,7 +13,7 @@ a:hover{
   color: var(--blue-color);
 
 }
-a:active{
+a.active{
   color: var(--blue-color);
   border-bottom: 1px solid var(--blue-color);
 }
