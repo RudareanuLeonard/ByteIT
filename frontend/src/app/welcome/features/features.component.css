@@ -1,0 +1,28 @@
+.features-container{
+  width: 75%;
+  min-height: 250px;
+  margin: 100px auto;
+  padding: 0 20px;
+  border: 1px solid #c0c0c0;
+  color: #c0c0c0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.feature-box{
+  width: 250px;
+  height: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin: 10px;
+}
+
+@media (max-width: 870px) {
+  .feature-box{
+    margin: 10px auto;
+  }
+}
