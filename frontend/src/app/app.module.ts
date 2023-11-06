@@ -8,6 +8,7 @@ import {NgOptimizedImage} from "@angular/common";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DescriptionComponent } from './welcome/description/description.component';
 import { FeaturesComponent } from './welcome/features/features.component';
+import { FeatureBoxComponent } from './welcome/features/feature-box/feature-box.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FeaturesComponent } from './welcome/features/features.component';
     NavBarComponent,
     WelcomeComponent,
     DescriptionComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    FeatureBoxComponent
   ],
   imports: [
     BrowserModule,
