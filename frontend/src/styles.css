@@ -15,6 +15,3 @@ body{
   --blue-color : #0088a9;
   --dark-blue-color : #001438;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
