@@ -10,6 +10,9 @@ import { FeaturesComponent } from './welcome/features/features.component';
 import { FeatureBoxComponent } from './welcome/features/feature-box/feature-box.component';
 import { FooterComponent } from './footer/footer.component';
 import { CourseBoxComponent } from './courses/course-box/course-box.component';
+import { LoginPopUpComponent } from './login-pop-up/login-pop-up.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { CourseBoxComponent } from './courses/course-box/course-box.component';
     FeatureBoxComponent,
     FooterComponent,
     routingComponents,
-    CourseBoxComponent
+    CourseBoxComponent,
+    LoginPopUpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
