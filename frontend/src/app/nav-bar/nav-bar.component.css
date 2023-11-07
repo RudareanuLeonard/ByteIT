@@ -88,8 +88,9 @@ header{
 }
 
 .dropdown_menu.open{
-  height: 200px;
+  height: 190px;
   border: 1px solid #18191c;
+  z-index: 1;
 }
 
 .dropdown_menu li{

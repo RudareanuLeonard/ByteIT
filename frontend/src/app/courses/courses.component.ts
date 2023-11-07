@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course} from "../entities/course";
+import {bounceInUpOnEnterAnimation} from "angular-animations";
+
 
 @Component({
   selector: 'app-courses',
+  animations:[
+    bounceInUpOnEnterAnimation({duration:650})
+  ],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
   categoryList = ["Introduction", "Beginner Courses", "Intermediate Courses"]
   currentValue = 0;
+  animationState:boolean = false;
 
   allCoursesList: Course[] = [];
   coursesList: Course[] = [];
@@ -19,13 +25,23 @@ export class CoursesComponent {
     this.coursesList = this.allCoursesList.filter((obj) =>{
       return obj.category == this.categoryList[this.currentValue];
     })
+    this.animate();
+  }
+
+  animate(){
+    this.animationState = false;
+    setTimeout(() => {
+      this.animationState = true;
+    }, 100);
   }
 
   right() {
     if (this.currentValue < this.categoryList.length - 1) {
       this.currentValue++;
+      this.animate();
       this.coursesList = this.allCoursesList.filter((obj) =>{
         return obj.category == this.categoryList[this.currentValue];
+
       })
     }
   }
@@ -33,9 +49,12 @@ export class CoursesComponent {
   left() {
     if (this.currentValue > 0) {
       this.currentValue--;
+      this.animate();
       this.coursesList = this.allCoursesList.filter((obj) =>{
         return obj.category == this.categoryList[this.currentValue];
       })
     }
   }
+
 }
+

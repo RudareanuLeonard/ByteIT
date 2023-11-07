@@ -11,9 +11,9 @@
   </div>
 
   <div class="dropdown_menu">
-    <li><a href="">Welcome</a></li>
-    <li><a href="">Courses</a></li>
+    <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
+    <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
     <li><a href="">Tests</a></li>
-    <li><a href="" class="action_btn" >Login</a></li>
+    <button href="#" class="action_btn" (click)="openModal()">Login</button>
   </div>
 </header>
