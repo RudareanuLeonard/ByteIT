@@ -6,8 +6,27 @@
   border-radius: 10px;
   background-color: var(--darker-background-color);
   color: var(--white-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
 }
+.photo {
+  flex: 1;
+  padding: 20px;
+}
+.photo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.description {
+  flex: 1;
+  padding: 20px;
+}
+
+
 
 .title{
   font-weight: 700;

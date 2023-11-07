@@ -1,8 +1,8 @@
 .features-container{
   width: 70%;
   min-height: 250px;
-  margin: 100px auto;
-  padding: 10px 20px;
+  margin: 50px auto;
+  padding: 20px 20px;
   /*border: 1px solid var(--white-text-color);*/
   background-color: var(--darker-background-color);
   color: var(--white-text-color);
@@ -13,12 +13,12 @@
 }
 
 app-feature-box{
-  width: 225px;
-  height: 300px;
+  width: 200px;
+  height: 250px;
   padding: 20px;
   box-sizing: border-box;
   background-color: var(--background-color);
-  border: 1px solid var(--white-text-color);
+  /*border: 1px solid var(--white-text-color);*/
   border-radius: 10px;
   text-align: center;
   margin: 10px;
