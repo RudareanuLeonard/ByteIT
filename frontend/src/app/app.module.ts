@@ -9,6 +9,7 @@ import { DescriptionComponent } from './welcome/description/description.componen
 import { FeaturesComponent } from './welcome/features/features.component';
 import { FeatureBoxComponent } from './welcome/features/feature-box/feature-box.component';
 import { FooterComponent } from './footer/footer.component';
+import { CourseBoxComponent } from './courses/course-box/course-box.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './footer/footer.component';
     FeaturesComponent,
     FeatureBoxComponent,
     FooterComponent,
-    routingComponents
+    routingComponents,
+    CourseBoxComponent
   ],
   imports: [
     BrowserModule,

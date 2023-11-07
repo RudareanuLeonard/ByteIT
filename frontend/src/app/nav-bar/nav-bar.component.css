@@ -52,12 +52,11 @@ header{
 .action_btn{
   background-color: var(--blue-color);
   color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   border: none;
   outline: none;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease 0s;
 }
