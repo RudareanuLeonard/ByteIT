@@ -29,6 +29,11 @@
   cursor:pointer;
   font-size: 2rem;
 }
+.category-selection i:hover{
+  color:var(--blue-color);
+  scale: 1.15;
+}
+
 
 .category{
   color:var(--white-text-color);
@@ -43,7 +48,7 @@ app-course-box{
   /*border: 1px solid var(--white-text-color);*/
   border-radius: 10px;
   text-align: center;
-  margin: 10px;
+  margin: 10px auto;
 }
 
 @media (max-width: 1700px) {
