@@ -1,12 +1,12 @@
 
-<div class="category-selection">
+<div *ngIf="1" [@slideInUpOnEnter] class="category-selection">
   <i (click)="left()" class="fa-solid fa-arrow-left"></i>
-  <span *ngIf="animationState" [@bounceInUpOnEnter] id="category" class="category">{{categoryList[currentValue]}}</span>
+  <span  id="category" class="category">{{categoryList[currentValue]}}</span>
   <i (click)="right()" class="fa-solid fa-arrow-right"></i>
 
 </div>
 
-<div *ngIf="animationState" [@bounceInUpOnEnter] class="courses-container" id="courses-container">
+<div *ngIf="animationState" [@slideInUpOnEnter] class="courses-container" id="courses-container">
   <app-course-box *ngFor="let course of coursesList"
     [title] = "course.title"
     [image]="course.image"

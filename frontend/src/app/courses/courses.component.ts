@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course} from "../entities/course";
-import {bounceInUpOnEnterAnimation} from "angular-animations";
+import {slideInUpOnEnterAnimation} from "angular-animations";
 
 
 @Component({
   selector: 'app-courses',
   animations:[
-    bounceInUpOnEnterAnimation({duration:650})
+    slideInUpOnEnterAnimation({duration:650})
   ],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']

@@ -6,4 +6,5 @@
 main{
   flex:1;
   padding: 15px;
+  min-height: 100vh;
 }
