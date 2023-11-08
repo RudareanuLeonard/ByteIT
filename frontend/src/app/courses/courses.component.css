@@ -49,6 +49,7 @@ app-course-box{
   border-radius: 10px;
   text-align: center;
   margin: 10px auto;
+  cursor: pointer;
 }
 
 @media (max-width: 1700px) {

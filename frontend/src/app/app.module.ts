@@ -13,6 +13,7 @@ import { CourseBoxComponent } from './courses/course-box/course-box.component';
 import { LoginPopUpComponent } from './login-pop-up/login-pop-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CoursePageComponent } from './courses/course-page/course-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FooterComponent,
     routingComponents,
     CourseBoxComponent,
-    LoginPopUpComponent
+    LoginPopUpComponent,
+    CoursePageComponent
   ],
   imports: [
     BrowserModule,

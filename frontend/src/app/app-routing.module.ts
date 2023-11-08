@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {CoursesComponent} from "./courses/courses.component";
+import {CoursePageComponent} from "./courses/course-page/course-page.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'courses', component: CoursesComponent},
+  {path: 'courses/:title', component: CoursePageComponent},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' }
 
 ];
@@ -16,4 +18,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [WelcomeComponent, CoursesComponent]
+export const routingComponents = [WelcomeComponent, CoursesComponent,CoursePageComponent]

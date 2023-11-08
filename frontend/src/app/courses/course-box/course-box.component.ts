@@ -1,4 +1,6 @@
 import {Component, Input} from '@angular/core';
+import {Course} from "../../entities/course";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-box',
@@ -6,7 +8,12 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./course-box.component.css']
 })
 export class CourseBoxComponent {
-  @Input() title = '';
-  @Input() image = '';
-  @Input() description = '';
+  @Input() course!:Course;
+
+  constructor(private router: Router) {
+
+  }
+  openCourse(course:Course){
+    this.router.navigate(['/courses',course.title]);
+  }
 }

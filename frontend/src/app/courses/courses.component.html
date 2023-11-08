@@ -8,9 +8,7 @@
 
 <div *ngIf="animationState" [@slideInUpOnEnter] class="courses-container" id="courses-container">
   <app-course-box *ngFor="let course of coursesList"
-    [title] = "course.title"
-    [image]="course.image"
-    [description]="course.description"
+    [course] = "course"
   ></app-course-box>
 
 </div>

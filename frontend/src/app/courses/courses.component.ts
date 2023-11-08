@@ -8,6 +8,7 @@ import {slideInUpOnEnterAnimation} from "angular-animations";
   selector: 'app-courses',
   animations:[
     slideInUpOnEnterAnimation({duration:650})
+
   ],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
