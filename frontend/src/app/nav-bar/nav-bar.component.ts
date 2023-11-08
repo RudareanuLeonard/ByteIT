@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginPopUpComponent } from '../login-pop-up/login-pop-up.component';
+import {zoomInUpOnEnterAnimation} from "angular-animations";
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  animations:[
+    zoomInUpOnEnterAnimation({duration: 1500})
+  ]
 })
 export class NavBarComponent {
   openDropDownMenu(){
@@ -18,9 +22,19 @@ export class NavBarComponent {
     toggleBtnIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
   }
 
+
+  // animationState:boolean = false;
+
+  // animate(){
+  //   this.animationState = false;
+  //   setTimeout(() => {
+  //     this.animationState = true;
+  //   }, 100);
+  // }
+
     openModal(){
       const loginModal = document.getElementById("loginModal");
-
+      // this.animate();
       if(loginModal != null)
       loginModal.style.display = 'block';
 
@@ -35,9 +49,9 @@ export class NavBarComponent {
       loginModal.style.display = 'none';
 
       // this.dialog.open(LoginPopUpComponent);
-      alert("Closed");
+      // alert("Closed");
     }
 
-    
+
 
 }
