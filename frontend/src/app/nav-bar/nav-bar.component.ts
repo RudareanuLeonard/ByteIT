@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginPopUpComponent } from '../login-pop-up/login-pop-up.component';
+import {zoomInUpOnEnterAnimation} from "angular-animations";
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+
 })
 export class NavBarComponent {
   openDropDownMenu(){
@@ -35,9 +37,9 @@ export class NavBarComponent {
       loginModal.style.display = 'none';
 
       // this.dialog.open(LoginPopUpComponent);
-      alert("Closed");
+      // alert("Closed");
     }
 
-    
+
 
 }
