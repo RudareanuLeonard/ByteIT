@@ -6,7 +6,9 @@ import {zoomInUpOnEnterAnimation} from "angular-animations";
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-
+  animations:[
+    zoomInUpOnEnterAnimation({duration: 1500})
+  ]
 })
 export class NavBarComponent {
   openDropDownMenu(){
@@ -20,9 +22,19 @@ export class NavBarComponent {
     toggleBtnIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
   }
 
+
+  // animationState:boolean = false;
+
+  // animate(){
+  //   this.animationState = false;
+  //   setTimeout(() => {
+  //     this.animationState = true;
+  //   }, 100);
+  // }
+
     openModal(){
       const loginModal = document.getElementById("loginModal");
-
+      // this.animate();
       if(loginModal != null)
       loginModal.style.display = 'block';
 
