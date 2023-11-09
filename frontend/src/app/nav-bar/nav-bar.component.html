@@ -1,25 +1,28 @@
 <header class="pt-2">
-  <div class="navbar pb-5">
-    <div class="logo"><img class="logo" src="favicon.ico" alt="logo"></div>
-    <ul class="links mt-3">
+<!--  <div class="nav-bar pb-4 pt-4">-->
+  <img class="logo" src="favicon.ico" alt="logo">
+    <ul class="nav_links mt-3">
       <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
       <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
       <li><a href="">Tests</a></li>
     </ul>
-    <div>
+    <div class="right-buttons">
       <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
       <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
-      <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
     </div>
 
-  </div>
+  <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
+
+<!--  </div>-->
 
   <div class="dropdown_menu">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
     <li><a href="">Tests</a></li>
-    <div>
+    <div class="buttons-container">
       <button class="action_btn" (click)="openModal()">Login</button>
+    </div>
+    <div class="buttons-container">
       <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
     </div>
 
