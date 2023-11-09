@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
 
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -10,7 +11,6 @@ import {zoomInUpOnEnterAnimation} from "angular-animations";
   ]
 })
 export class NavBarComponent {
-
   openDropDownMenu(){
     // @ts-ignore
     const dropDownMenu:Element = document.querySelector('.dropdown_menu');
@@ -37,9 +37,6 @@ export class NavBarComponent {
       if(loginModal != null)
       loginModal.style.display = 'block';
 
-
-      // this.dialog.open(LoginPopUpComponent);
-      // alert("Open");
     }
 
   openSignUpModal(){

@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 25px;
 }
 
 app-feature-box{
@@ -21,11 +22,5 @@ app-feature-box{
   /*border: 1px solid var(--white-text-color);*/
   border-radius: 10px;
   text-align: center;
-  margin: 10px;
-}
-
-@media (max-width: 870px) {
-  app-feature-box{
-    margin: 10px auto;
-  }
+  margin: 0 auto;
 }

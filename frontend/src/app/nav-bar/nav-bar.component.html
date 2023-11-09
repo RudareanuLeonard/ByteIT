@@ -1,19 +1,19 @@
 <header class="pt-2">
-<!--  <div class="nav-bar pb-4 pt-4">-->
+  <!--  <div class="nav-bar pb-4 pt-4">-->
   <img class="logo" src="favicon.ico" alt="logo">
-    <ul class="nav_links mt-3">
-      <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
-      <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-      <li><a href="">Tests</a></li>
-    </ul>
-    <div class="right-buttons">
-      <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
-      <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
-    </div>
+  <ul class="nav_links mt-3">
+    <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
+    <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
+    <li><a href="">Tests</a></li>
+  </ul>
+  <div class="right-buttons">
+    <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
+    <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
+  </div>
 
   <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
 
-<!--  </div>-->
+  <!--  </div>-->
 
   <div class="dropdown_menu">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
+  gap: 25px;
 }
 
 .category-selection{
@@ -37,6 +37,7 @@
 
 .category{
   color:var(--white-text-color);
+  gap: 10px;
 }
 
 app-course-box{
@@ -48,12 +49,8 @@ app-course-box{
   /*border: 1px solid var(--white-text-color);*/
   border-radius: 10px;
   text-align: center;
-  margin: 10px auto;
+  margin: 0 auto;
   cursor: pointer;
+
 }
 
-@media (max-width: 1700px) {
-  app-course-box{
-    margin: 10px auto;
-  }
-}
