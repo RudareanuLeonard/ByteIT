@@ -6,14 +6,22 @@
       <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
       <li><a href="">Tests</a></li>
     </ul>
-    <button class="action_btn" (click)="openModal()" >Login</button>
-    <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
+    <div>
+      <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
+      <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
+      <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
+    </div>
+
   </div>
 
   <div class="dropdown_menu">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
     <li><a href="">Tests</a></li>
-    <button class="action_btn" (click)="openModal()">Login</button>
+    <div>
+      <button class="action_btn" (click)="openModal()">Login</button>
+      <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
+    </div>
+
   </div>
 </header>

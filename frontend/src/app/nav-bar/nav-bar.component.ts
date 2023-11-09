@@ -42,6 +42,17 @@ export class NavBarComponent {
       // alert("Open");
     }
 
+  openSignUpModal(){
+    const signupModal = document.getElementById("signupModal");
+    console.log("open sign up button pressed");
+    if(signupModal != null)
+      signupModal.style.display = 'block';
+
+
+    // this.dialog.open(LoginPopUpComponent);
+    // alert("Open");
+  }
+
     closeModal(){
       const loginModal = document.getElementById("loginModal");
 
