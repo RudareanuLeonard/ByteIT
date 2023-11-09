@@ -15,7 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CoursePageComponent } from './courses/course-page/course-page.component';
 import { SignUpPopUpComponent } from './sign-up-pop-up/sign-up-pop-up.component';
-
 @NgModule({
   declarations: [
     AppComponent,

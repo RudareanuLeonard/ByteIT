@@ -22,10 +22,12 @@ a.active{
 /* HEADER */
 header{
   /*position: relative;*/
-  padding: 2rem 10%;
+  padding: 2rem 10% 0.5rem 10%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  box-shadow: 0 5px 5px -1px #111;
+  background-color: var(--darker-background-color);
 }
 
 /*.nav-bar{*/
@@ -115,7 +117,7 @@ header{
   width: 100%;
   text-align: center;
 }
-.dropdown_menu .action_btn{
+.dropdown_menu .action_btn {
   width: 90%;
   display: flex;
   justify-content: center;
@@ -132,7 +134,7 @@ header{
 
 @media(max-width: 992px){
   header{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
   }
   .nav_links,
   .action_btn{

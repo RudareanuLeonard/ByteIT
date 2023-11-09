@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course} from "../entities/course";
 import {slideInUpOnEnterAnimation} from "angular-animations";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CoursesComponent {
   allCoursesList: Course[] = [];
   coursesList: Course[] = [];
 
-  constructor(private coursesServices: CoursesService) {
+  constructor(private coursesServices: CoursesService, private router: Router) {
     this.allCoursesList = coursesServices.coursesList;
     this.coursesList = this.allCoursesList.filter((obj) =>{
       return obj.category == this.categoryList[this.currentValue];
@@ -57,5 +58,8 @@ export class CoursesComponent {
     }
   }
 
+  openCourse(course:Course){
+    this.router.navigate(['/courses',course.title]);
+  }
 }
 

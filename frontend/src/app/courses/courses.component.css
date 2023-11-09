@@ -28,10 +28,11 @@
   color:var(--white-text-color);
   cursor:pointer;
   font-size: 2rem;
+  transition: all 0.3s ease 0s;
 }
 .category-selection i:hover{
   color:var(--blue-color);
-  scale: 1.15;
+  scale: 1.25;
 }
 
 
@@ -51,6 +52,13 @@ app-course-box{
   text-align: center;
   margin: 0 auto;
   cursor: pointer;
+  box-shadow: 0 3px 10px #111;
+  transition: all 0.5s ease 0s;
+  user-select: none;
 
+}
+
+app-course-box:hover{
+  scale: 1.05;
 }
 
