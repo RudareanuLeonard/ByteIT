@@ -74,11 +74,24 @@ header{
   transition: all 0.2s ease 0s;
 }
 
+.settings{
+  position: absolute;
+  font-size: 14px;
+  color: white;
+  background-color: var(--darker-background-color);
+  padding: 5px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
 .action_btn:hover{
   scale: 1.05;
   color: #fff;
+  .settings{
+    opacity: 1;
+  }
 }
-
 .action_btn:active{
   scale:0.95;
 
@@ -129,6 +142,7 @@ header{
   align-items: center;
   margin: 10px 0;
 }
+
 
 /* RESPONSIVE */
 

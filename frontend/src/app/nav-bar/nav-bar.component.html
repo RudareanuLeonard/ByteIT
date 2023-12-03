@@ -11,7 +11,8 @@
     <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
   </div>
   <div class="right-buttons" *ngIf="isLoggedIn()">
-    <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i></button>
+    <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i><div class="settings">Settings</div></button>
+
   </div>
 
   <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
@@ -28,6 +29,11 @@
       </div>
       <div class="buttons-container">
         <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
+      </div>
+    </div>
+    <div *ngIf="isLoggedIn()">
+      <div class="buttons-container">
+        <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i></button>
       </div>
     </div>
 

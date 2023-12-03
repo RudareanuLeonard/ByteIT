@@ -6,7 +6,8 @@
         <div class="change-photo">Change Photo</div>
       </div>
       <div class="user-details">
-        <h2 class="user-name">{{loggedUser.name}}</h2>
+        <h2 class="user-name">{{loggedUser.username}}</h2>
+        <p class="user-role">Name: {{loggedUser.name}}</p>
         <p class="user-role">Level: {{Levels[loggedUser.level]}}</p>
         <p class="user-role">Subscription: {{Subscriptions[loggedUser.subscription]}}</p>
         <p class="email">Email: {{loggedUser.email}}</p>
