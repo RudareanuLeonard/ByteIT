@@ -6,9 +6,12 @@
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
     <li><a href="">Tests</a></li>
   </ul>
-  <div class="right-buttons">
+  <div class="right-buttons" *ngIf="!isLoggedIn()">
     <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
     <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
+  </div>
+  <div class="right-buttons" *ngIf="isLoggedIn()">
+    <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i></button>
   </div>
 
   <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
@@ -19,12 +22,15 @@
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
     <li><a href="">Tests</a></li>
-    <div class="buttons-container">
-      <button class="action_btn" (click)="openModal()">Login</button>
+    <div *ngIf="!isLoggedIn()">
+      <div class="buttons-container">
+        <button class="action_btn" (click)="openModal()">Login</button>
+      </div>
+      <div class="buttons-container">
+        <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
+      </div>
     </div>
-    <div class="buttons-container">
-      <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
-    </div>
+
 
   </div>
 </header>

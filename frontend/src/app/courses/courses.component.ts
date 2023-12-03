@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course} from "../entities/course";
 import {slideInUpOnEnterAnimation} from "angular-animations";

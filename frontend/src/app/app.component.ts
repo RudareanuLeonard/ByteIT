@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,11 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AppComponent {
   title = 'TW-Frontend';
+
+  constructor(private authService: AuthenticationService, ) {
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 }

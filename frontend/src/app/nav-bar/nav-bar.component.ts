@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
+import {AuthenticationService} from "../services/authentication.service";
 
 
 @Component({
@@ -11,6 +12,13 @@ import {zoomInUpOnEnterAnimation} from "angular-animations";
   ]
 })
 export class NavBarComponent {
+
+  constructor(private authService: AuthenticationService) {
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
   openDropDownMenu(){
     // @ts-ignore
     const dropDownMenu:Element = document.querySelector('.dropdown_menu');
@@ -23,14 +31,6 @@ export class NavBarComponent {
   }
 
 
-  // animationState:boolean = false;
-
-  // animate(){
-  //   this.animationState = false;
-  //   setTimeout(() => {
-  //     this.animationState = true;
-  //   }, 100);
-  // }
 
     openModal(){
       const loginModal = document.getElementById("loginModal");

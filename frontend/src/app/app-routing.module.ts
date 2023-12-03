@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {CoursesComponent} from "./courses/courses.component";
 import {CoursePageComponent} from "./courses/course-page/course-page.component";
+import {UserSettingsComponent} from "./user-settings/user-settings.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'courses', component: CoursesComponent},
   {path: 'courses/:title', component: CoursePageComponent},
+  {path: 'settings', component: UserSettingsComponent},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' }
 
 ];
@@ -18,4 +20,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [WelcomeComponent, CoursesComponent,CoursePageComponent]
+export const routingComponents = [WelcomeComponent, CoursesComponent,CoursePageComponent, UserSettingsComponent]

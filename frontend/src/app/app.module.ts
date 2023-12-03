@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CoursePageComponent } from './courses/course-page/course-page.component';
 import { SignUpPopUpComponent } from './sign-up-pop-up/sign-up-pop-up.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,15 +29,17 @@ import { SignUpPopUpComponent } from './sign-up-pop-up/sign-up-pop-up.component'
     CourseBoxComponent,
     LoginPopUpComponent,
     CoursePageComponent,
-    SignUpPopUpComponent
+    SignUpPopUpComponent,
+    UserSettingsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgOptimizedImage,
-    BrowserAnimationsModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

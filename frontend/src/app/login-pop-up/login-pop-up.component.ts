@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { zoomInUpOnEnterAnimation } from 'angular-animations';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from "../services/authentication.service";
 @Component({
   selector: 'app-login-pop-up',
   templateUrl: './login-pop-up.component.html',
@@ -8,14 +10,24 @@ import { zoomInUpOnEnterAnimation } from 'angular-animations';
     zoomInUpOnEnterAnimation({ duration: 1500 })
   ]
 })
-export class LoginPopUpComponent {
+export class LoginPopUpComponent implements OnInit {
+  loginForm!: FormGroup;
+
   animationState: boolean = false;
 
-  constructor() {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService
+  ) {
     this.animate();
   }
 
-
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
   animate() {
     this.animationState = false;
     setTimeout(() => {
@@ -23,6 +35,12 @@ export class LoginPopUpComponent {
     }, 100);
   }
 
+  loginUser(){
+    const username = this.loginForm.get('username')?.value;
+    this.authService.authenticateUser(username);
+    this.closeModal();
+    window.location.reload();
+  }
 
   closeModal() {
     const loginModal = document.getElementById("loginModal");
