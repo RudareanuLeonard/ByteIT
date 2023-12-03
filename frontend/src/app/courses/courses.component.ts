@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
-  categoryList = ["Introduction", "Beginner Courses", "Intermediate Courses"]
+  categoryList = ["Introduction Courses", "Beginner Courses", "Intermediate Courses", "Advanced Courses"]
   currentValue = 0;
   animationState:boolean = false;
 
@@ -25,7 +25,7 @@ export class CoursesComponent {
   constructor(private coursesServices: CoursesService, private router: Router) {
     this.allCoursesList = coursesServices.coursesList;
     this.coursesList = this.allCoursesList.filter((obj) =>{
-      return obj.category == this.categoryList[this.currentValue];
+      return obj.level == this.currentValue;
     })
     this.animate();
   }
@@ -42,7 +42,7 @@ export class CoursesComponent {
       this.currentValue++;
       this.animate();
       this.coursesList = this.allCoursesList.filter((obj) =>{
-        return obj.category == this.categoryList[this.currentValue];
+        return obj.level == this.currentValue;
 
       })
     }
@@ -53,7 +53,7 @@ export class CoursesComponent {
       this.currentValue--;
       this.animate();
       this.coursesList = this.allCoursesList.filter((obj) =>{
-        return obj.category == this.categoryList[this.currentValue];
+        return obj.level == this.currentValue;
       })
     }
   }

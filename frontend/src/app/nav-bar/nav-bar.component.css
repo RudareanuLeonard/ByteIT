@@ -74,6 +74,17 @@ header{
   transition: all 0.2s ease 0s;
 }
 
+.logout_btn{
+  color: #fff;
+  padding: 0.5rem 2rem;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease 0s;
+}
+
 .settings{
   position: absolute;
   font-size: 14px;
@@ -88,14 +99,21 @@ header{
 .action_btn:hover{
   scale: 1.05;
   color: #fff;
-  .settings{
-    opacity: 1;
-  }
-}
-.action_btn:active{
-  scale:0.95;
 
 }
+.logout_btn:hover{
+  scale: 1.05;
+  color: #fff;
+}
+
+.action_btn:active{
+  scale:0.95;
+}
+.action_btn:hover .settings{
+  opacity: 1;
+}
+
+
 
 /* DROPDOWN MENU */
 
@@ -130,7 +148,7 @@ header{
   width: 100%;
   text-align: center;
 }
-.dropdown_menu .action_btn {
+.dropdown_menu .action_btn, .logout_btn {
   width: 90%;
   display: flex;
   justify-content: center;

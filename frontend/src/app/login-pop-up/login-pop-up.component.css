@@ -34,7 +34,7 @@
 
 .modal-footer button{
   border-color: var(--darker-background-color);
-  transition: all 0.3s ease;
+  transition: all 0.3s ease 0s;
 }
 
 .modal-footer button:hover{

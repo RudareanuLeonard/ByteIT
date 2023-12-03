@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
 import {AuthenticationService} from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -13,8 +14,10 @@ import {AuthenticationService} from "../services/authentication.service";
 })
 export class NavBarComponent {
 
-  constructor(private authService: AuthenticationService) {
-  }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -48,6 +51,11 @@ export class NavBarComponent {
 
     // this.dialog.open(LoginPopUpComponent);
     // alert("Open");
+  }
+
+  logoutUser(){
+    this.authService.logout();
+    this.router.navigate(['/welcome']);
   }
 
     closeModal(){
