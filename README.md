@@ -1,2 +1,2 @@
 # ByteIT
-This is an Educational Platform created using Angular and Ruby on Rails
+This is an Educational Platform created using Angular and PHP
