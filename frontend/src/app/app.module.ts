@@ -17,6 +17,7 @@ import { CoursePageComponent } from './courses/course-page/course-page.component
 import { SignUpPopUpComponent } from './sign-up-pop-up/sign-up-pop-up.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,9 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
         NgOptimizedImage,
         BrowserAnimationsModule,
         MatDialogModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
+        
     ],
   providers: [],
   bootstrap: [AppComponent]
