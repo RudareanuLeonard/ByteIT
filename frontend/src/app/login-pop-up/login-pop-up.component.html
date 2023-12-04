@@ -1,0 +1,31 @@
+
+<div class="modal" id="loginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Log In</h4>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+
+        <!-- Modal body -->
+        <form class="modal-body" [formGroup]="loginForm" novalidate>
+
+          <input type="text" id="username" class="form-control" formControlName="username" placeholder="Username" required>
+<!--          <input type="email" id="defaultForm-email" class="form-control validate" placeholder="Your email...">-->
+          <br>
+          <input type="password" id="password" class="form-control validate" formControlName="password" placeholder="Password" required>
+        </form>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn login" data-bs-dismiss="modal" (click)="loginUser()">Login</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,15 @@
+footer{
+  clear: both;
+  position: relative;
+  margin-bottom: 0;
+  box-shadow: 0 -3px 3px -1px #111;
+}
+
+footer *{
+  color:var(--white-text-color);
+  background-color: var(--darker-background-color);
+}
+
+footer h3{
+  color: var(--blue-color);
+}

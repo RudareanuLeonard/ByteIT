@@ -1,0 +1,28 @@
+.features-container{
+  width: 70%;
+  min-height: 250px;
+  margin: 50px auto;
+  padding: 20px 20px;
+  /*border: 1px solid var(--white-text-color);*/
+  background-color: var(--darker-background-color);
+  color: var(--white-text-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 25px;
+  box-shadow: 0 8px 8px -4px #111;
+}
+
+app-feature-box{
+  width: 200px;
+  height: 250px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  /*border: 1px solid var(--white-text-color);*/
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 auto;
+  box-shadow: 0 3px 10px #111;
+}

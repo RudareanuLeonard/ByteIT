@@ -1,0 +1,48 @@
+.modal{
+  background-color: rgba(24, 25, 28, 0.75);
+}
+
+.modal-content{
+  animation-name: example;
+  animation-duration: 0.3s;
+  background-color: var(--background-color);
+  color: var(--white-text-color);
+}
+
+.modal-header{
+  border-color: var(--darker-background-color);
+}
+
+.modal-body input{
+  background-color: var(--background-color);
+  border-color: var(--darker-background-color);
+  color:var(--white-text-color);
+}
+
+.modal-body input::placeholder{
+  color:var(--white-text-color);
+}
+
+.modal-footer{
+  border-color: var(--darker-background-color);
+}
+
+.modal-footer .signup{
+  background-color: var(--blue-color);
+  color: white;
+}
+
+.modal-footer button{
+  border-color: var(--darker-background-color);
+  transition: all 0.3s ease 0s;
+}
+
+.modal-footer button:hover{
+  scale: 1.05;
+}
+
+@keyframes example {
+  0%   {transform: scale(0.5)}
+  75%  {transform: scale(1.1)}
+  100% {transform: scale(1)}
+}

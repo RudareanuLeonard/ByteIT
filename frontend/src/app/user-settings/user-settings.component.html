@@ -1,0 +1,21 @@
+<div *ngIf="animationState" [@slideInUpOnEnter]>
+  <div class="profile-header">
+    <div class="user-details-card">
+      <div class="user-picture-container">
+        <img class="user-picture" src="{{loggedUser.pictureUrl}}" alt="User Picture">
+        <div class="change-photo">Change Photo</div>
+      </div>
+      <div class="user-details">
+        <h2 class="user-name">{{loggedUser.username}}</h2>
+        <p class="user-role">Name: {{loggedUser.name}}</p>
+        <p class="user-role">Level: {{Levels[loggedUser.level]}}</p>
+        <p class="user-role">Subscription: {{Subscriptions[loggedUser.subscription]}}</p>
+        <p class="email">Email: {{loggedUser.email}}</p>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logoutUser()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

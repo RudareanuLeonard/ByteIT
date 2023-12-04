@@ -1,0 +1,88 @@
+
+.header-title{
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.user-details {
+  flex: 1; /* Add this line */
+}
+
+.user-profile {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Add this line */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Add this line */
+  margin-bottom: 20px;
+}
+
+.user-picture-container {
+  position: relative;
+  display: flex; /* Add this line */
+  justify-content: center; /* Add this line */
+  align-items: center; /* Add this line */
+}
+
+
+.user-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.user-picture:hover {
+  transform: scale(1.05);
+}
+
+.change-photo {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: white;
+  background-color: var(--darker-background-color);
+  padding: 5px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.user-picture-container:hover .change-photo {
+  opacity: 1;
+}
+
+.user-details-card {
+  background-color: var(--background-color);
+  color: var(--white-text-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+  width: fit-content; /* Add this line */
+  display: flex; /* Add this line */
+  align-items: center; /* Add this line */
+}
+
+
+.user-details-card:hover {
+  transform: scale(1.01);
+}
+
+.user-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
