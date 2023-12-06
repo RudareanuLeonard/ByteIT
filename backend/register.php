@@ -24,7 +24,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'options') {
 
 $my_server = "localhost";
 $username_conn = "root";
-$password_conn = "1234";
+$password_conn = "";
 $dbname_conn = "byteit_database";
 
 $conn = mysqli_connect($my_server, $username_conn, $password_conn, $dbname_conn);

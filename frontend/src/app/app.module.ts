@@ -18,6 +18,7 @@ import { SignUpPopUpComponent } from './sign-up-pop-up/sign-up-pop-up.component'
 import {ReactiveFormsModule} from "@angular/forms";
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { HttpClientModule } from '@angular/common/http';
+import {NgxTypedJsModule} from 'ngx-typed-js';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
         MatDialogModule,
         ReactiveFormsModule,
         HttpClientModule,
-        
+        NgxTypedJsModule,
+
     ],
   providers: [],
   bootstrap: [AppComponent]

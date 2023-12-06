@@ -14,7 +14,7 @@
 }
 .photo {
   flex: 1;
-  padding: 20px;
+  padding: 40px 20px 10px 20px;
 }
 .photo img {
   max-width: 100%;
@@ -36,6 +36,7 @@
   color: var(--blue-color);
   font-size: 36px;
   text-align: center;
+  height: 40px;
 }
 
 @media (max-width: 1275px) {
