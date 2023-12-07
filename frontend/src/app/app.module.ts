@@ -19,6 +19,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxTypedJsModule} from 'ngx-typed-js';
+import { AlertComponent } from './alert/alert.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,19 +33,20 @@ import {NgxTypedJsModule} from 'ngx-typed-js';
     LoginPopUpComponent,
     CoursePageComponent,
     SignUpPopUpComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage,
-        BrowserAnimationsModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgxTypedJsModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxTypedJsModule,
+    AlertComponent,
 
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

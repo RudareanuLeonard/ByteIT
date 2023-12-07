@@ -55,7 +55,10 @@ export class SignUpPopUpComponent implements OnInit{
     const url = "http://localhost/backend/register.php";
     var data = this.signupForm.value;
     this.http.post(url, data, {responseType: 'text'}).subscribe(
-      (response) => {console.log('Response:', response)},
+      (response) => {
+        console.log('Response:', response);
+        this.closeModal();
+      },
       (error)=>{console.error("ERROR! SIGNUP FAILED!", error);},
 
     )
