@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from "../services/authentication.service";
-import {HttpClientModule} from "@angular/common/http";
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.development'; 
 
 
 @Component({
@@ -26,7 +24,8 @@ export class SignUpPopUpComponent implements OnInit{
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
   }
 
@@ -45,18 +44,13 @@ export class SignUpPopUpComponent implements OnInit{
     console.log(this.signupForm.value);
 
     console.log("YOOOO");
-
-    // var formData = new FormData();
-
-    // formData.append('username', this.signupForm.value.username);
-    // formData.append('email', this.signupForm.value.email);
-    // formData.append('name', this.signupForm.value.name);
-    // formData.append('password', this.signupForm.value.password);
-
     const url = "http://localhost/backend/register.php";
     var data = this.signupForm.value;
     this.http.post(url, data, {responseType: 'text'}).subscribe(
-      (response) => {console.log('Response:', response)},
+      (response) => {
+        console.log('Response:', response);
+        this.closeModal();
+      },
       (error)=>{console.error("ERROR! SIGNUP FAILED!", error);},
 
     )
@@ -69,7 +63,7 @@ export class SignUpPopUpComponent implements OnInit{
 
   // signupUser(){
   //   alert("FORM SUBMITTED!");
-    
+
   //   if(this.signupForm.valid){
   //     var url = "http://localhost/backend/register.php"; //need to change it to auto get the url, not hardcode it...
   //     this.http.post(url, this.signupForm.value).subscribe(
@@ -77,7 +71,7 @@ export class SignUpPopUpComponent implements OnInit{
   //       error => {console.error("Sign Up Failed! Not inserted!", error);}
   //     )
 
-      
+
   //   }
   // }
 
