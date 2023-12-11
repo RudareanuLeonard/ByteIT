@@ -57,7 +57,7 @@ loginUser(){
   const url = "http://localhost/backend/login.php";
 
   interface MyResponse {
-    success: number; 
+    success: number;
   }
 
 
@@ -65,11 +65,19 @@ loginUser(){
     (response) => {
       //console.log("TS Response = ", response["success"]);
 
-      if(response["success"] == 0)
-        console.log("RESPONSE = 0")
+      if(response["success"] == 0){
+        // console.log("RESPONSE = 0");
+        this.showAlert(AlertType.ERROR,'Username or password is not correct!');
+      }
       else{
         var username = data["username"];
         this.authService.authenticateUser(username);
+        this.closeModal();
+        this.showAlert(AlertType.SUCCESS,'Login Successful!');
+        setTimeout(() => {
+          // Reload the page after showing the notification
+          window.location.reload();
+        }, 1500);
       }
 
 
@@ -125,7 +133,7 @@ loginUser(){
   //   console.log("DATA = " , data);
 
     // interface MyResponse {
-    //   success: number; 
+    //   success: number;
     // }
 
 
@@ -151,7 +159,7 @@ loginUser(){
 
   // }
 
-  
+
 
   // async loginUser(){
 
@@ -172,12 +180,12 @@ loginUser(){
   //   else{
   //     console.log("login not working")
   //   }
-    
+
 
 
     // this.router.navigate(['/']);
 
-    
+
     // const url = "http://localhost/backend/login.php";
     // var data = this.loginForm.value;
     // console.log("DATA = " , data);
