@@ -71,7 +71,11 @@ loginUser(){
       }
       else{
         var username = data["username"];
-        this.authService.authenticateUser(username);
+        var fullname = data["fullname"];
+        var email = data["email"];
+        var subscription = data["subscription"];
+        var level = data["level"];
+        this.authService.authenticateUser(username, fullname, email);
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {

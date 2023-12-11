@@ -4,7 +4,7 @@
   <ul class="nav_links mt-3">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a [routerLink]="['/welcome']" (click)="showAlert(AlertType.WARNING,'Test page not available yet!')">Tests</a></li>
+    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
   </ul>
   <div class="right-buttons" *ngIf="!isLoggedIn()">
     <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
@@ -22,7 +22,7 @@
   <div class="dropdown_menu" #menu>
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a [routerLink]="['/welcome']" (click)="showAlert(AlertType.WARNING,'Test page not available yet!')">Tests</a></li>
+    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
     <div *ngIf="!isLoggedIn()">
       <div class="buttons-container">
         <button class="action_btn" (click)="openModal()">Login</button>

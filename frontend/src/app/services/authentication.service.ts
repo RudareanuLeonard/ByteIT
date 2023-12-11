@@ -25,12 +25,12 @@ export class AuthenticationService {
     this._loggedUser = value;
   }
 
-  authenticateUser(name: string){
+  authenticateUser(fullname: string, username: string, email: string){
     let loggedUser:User = {
       id:1,
-      username:name,
-      name:name,
-      email:"exemplu@email.com",
+      username:username,
+      name:fullname,
+      email:email,
       subscription:Subscriptions.NONE,
       level:Levels.BEGINNER,
       pictureUrl:"https://robohash.org/hehehe?bgset=bg1"
