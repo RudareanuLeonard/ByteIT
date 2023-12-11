@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
 import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
@@ -15,12 +15,19 @@ import {AlertService} from "../services/alert.service";
   ]
 })
 export class NavBarComponent {
+  @ViewChild('toggleButton') toggleButton?: ElementRef;
+  @ViewChild('menu') menu?: ElementRef;
+
+  isMenuOpen = false;
 
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private alertService: AlertService
-  ) {}
+    private alertService: AlertService,
+    private renderer: Renderer2
+  ) {
+
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -29,11 +36,21 @@ export class NavBarComponent {
     // @ts-ignore
     const dropDownMenu:Element = document.querySelector('.dropdown_menu');
     dropDownMenu.classList.toggle('open')
-    const isOpen = dropDownMenu.classList.contains('open');
+    this.isMenuOpen = dropDownMenu.classList.contains('open');
 
     // @ts-ignore
     const toggleBtnIcon:Element = document.querySelector('.toggle_btn i');
-    toggleBtnIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
+    toggleBtnIcon.className = this.isMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
+
+    // this.renderer.listen(dropDownMenu, 'click',(event)=> {
+    //   // @ts-ignore
+    //   if (dropDownMenu.classList.contains('open')) {
+    //     dropDownMenu.classList.toggle('open')
+    //   }
+    //   else if(!dropDownMenu.classList.contains('open') && event.target.classList.contains('toggle_btn')){
+    //     dropDownMenu.classList.toggle('open')
+    //   }
+    // });
   }
 
 

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from "../services/authentication.service";
 import { HttpClient } from '@angular/common/http';
+import {AlertType} from "../enums/alert-type";
+import {AlertService} from "../services/alert.service";
 
 
 @Component({
@@ -15,7 +17,8 @@ export class SignUpPopUpComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private http:HttpClient
+    private http:HttpClient,
+    private alertService: AlertService,
   ) {
   }
 
@@ -29,6 +32,12 @@ export class SignUpPopUpComponent implements OnInit{
     });
   }
 
+  showAlert(type:AlertType, text:String){
+    this.alertService.setAlert({
+      type: type,
+      text : text,
+    });
+  }
 
 
   closeModal() {
@@ -44,22 +53,18 @@ export class SignUpPopUpComponent implements OnInit{
     console.log(this.signupForm.value);
 
     console.log("YOOOO");
-
-    // var formData = new FormData();
-
-    // formData.append('username', this.signupForm.value.username);
-    // formData.append('email', this.signupForm.value.email);
-    // formData.append('name', this.signupForm.value.name);
-    // formData.append('password', this.signupForm.value.password);
-
     const url = "http://localhost/backend/register.php";
     var data = this.signupForm.value;
     this.http.post(url, data, {responseType: 'text'}).subscribe(
       (response) => {
         console.log('Response:', response);
         this.closeModal();
+        this.showAlert(AlertType.SUCCESS,'Account created successfully!');
       },
-      (error)=>{console.error("ERROR! SIGNUP FAILED!", error);},
+      (error)=>{
+        console.error("ERROR! SIGNUP FAILED!", error);
+        this.showAlert(AlertType.ERROR,'Signup failed! Please try again.');
+        },
 
     )
 
