@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class DescriptionComponent {
   title = "ByteIT"
-  description = "Description : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  description = "Salutare! ByteIT este o platforma educationala de informatica, conceputa pentru a oferi un mediu prosper dezvoltarii cunostintelor. Cursurile adaptate pentru toate nivelurile asigura o acumulare treptata cunostintelor. Astfel, ByteIT devine un partener ideal in calatoria de invatare, datorita informatiei valoroase si a suportului continuu pe care le ofera cursantilor."
 }
