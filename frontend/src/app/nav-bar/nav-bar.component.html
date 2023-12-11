@@ -4,7 +4,7 @@
   <ul class="nav_links mt-3">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a href="">Tests</a></li>
+    <li><a [routerLink]="['/welcome']" (click)="showAlert(AlertType.WARNING,'Test page not available yet!')">Tests</a></li>
   </ul>
   <div class="right-buttons" *ngIf="!isLoggedIn()">
     <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>

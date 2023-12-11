@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
 import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
+import {AlertType} from "../enums/alert-type";
+import {AlertService} from "../services/alert.service";
 
 
 @Component({
@@ -16,7 +18,8 @@ export class NavBarComponent {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   isLoggedIn(): boolean {
@@ -52,10 +55,17 @@ export class NavBarComponent {
     // this.dialog.open(LoginPopUpComponent);
     // alert("Open");
   }
+  showAlert(type:AlertType, text:String){
+    this.alertService.setAlert({
+      type: type,
+      text : text,
+    });
+  }
 
   logoutUser(){
     this.authService.logout();
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['/']);
+    this.showAlert(AlertType.INFO,'Logout Successful!');
   }
 
     closeModal(){
@@ -69,5 +79,5 @@ export class NavBarComponent {
     }
 
 
-
+  protected readonly AlertType = AlertType;
 }
