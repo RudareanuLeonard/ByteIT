@@ -20,6 +20,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxTypedJsModule} from 'ngx-typed-js';
 import { AlertComponent } from './alert/alert.component';
+import { WhiteboardComponent } from './whiteboard/whiteboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { AlertComponent } from './alert/alert.component';
     CoursePageComponent,
     SignUpPopUpComponent,
     UserSettingsComponent,
+    WhiteboardComponent,
   ],
   imports: [
     BrowserModule,

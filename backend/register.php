@@ -24,7 +24,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'options') {
 
 $my_server = "localhost";
 $username_conn = "root";
-$password_conn = "";
+$password_conn = "1234";
 $dbname_conn = "byteit_database";
 
 $conn = mysqli_connect($my_server, $username_conn, $password_conn, $dbname_conn);
@@ -52,6 +52,9 @@ $email = htmlspecialchars(trim($data->email));
 $name = htmlspecialchars(trim($data->name));
 $password = htmlspecialchars(trim($data->password));
 $confirm_password = htmlspecialchars(trim($data->confirmPassword));
+$subscription = "no_subscription";
+$level = "introduction";
+
 
 $can_insert = 1;
 
@@ -68,8 +71,8 @@ if(mysqli_num_rows($query_result) > 0) // if email already in db
 
 
 if($can_insert == 1){
-    $query = "INSERT INTO `".$table_name."`(username, email, fullname, password)
-    VALUES ('".$username."', '".$email."', '".$name."', '".$password."')";
+    $query = "INSERT INTO `".$table_name."`(username, email, fullname, password, subscription, level)
+    VALUES ('".$username."', '".$email."', '".$name."', '".$password."', '".$subscription."', '".$level."')";
     
     
     $stmt = $conn->prepare($query);
