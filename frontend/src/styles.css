@@ -2,6 +2,7 @@
 
 *{
   font-family: "Montserrat", sans-serif;
+  transition:0.3s;
 }
 
 body{
@@ -12,6 +13,23 @@ body{
   --background-color : #24252A;
   --darker-background-color : #18191CFF;
   --white-text-color : #dcdcdc;
+  --blue-color : #0088a9;
+  --dark-blue-color : #001438;
+}
+
+
+[data-theme="dark"] {
+  --background-color : #24252A;
+  --darker-background-color : #18191CFF;
+  --white-text-color : #dcdcdc;
+  --blue-color : #0088a9;
+  --dark-blue-color : #001438;
+}
+
+[data-theme="light"] {
+  --background-color : #ffffff;
+  --darker-background-color : #ffffff;
+  --white-text-color : #24252A;
   --blue-color : #0088a9;
   --dark-blue-color : #001438;
 }

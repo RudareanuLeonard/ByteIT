@@ -48,61 +48,148 @@ export class LoginPopUpComponent implements OnInit {
   }
 
 
-  checkIfLogInSuccessful(){
-    const url = "http://localhost/backend/login.php";
-    var data = this.loginForm.value;
-    console.log("DATA = " , data);
-
-    interface MyResponse {
-      success: number; 
-    }
 
 
-    this.http.post<MyResponse>(url, data, {responseType: 'json'}).subscribe(
-      (response) => {
-        console.log("LOGGED IN ");
-        if(response.success === 1)
-            return 1;
+loginUser(){
 
-        return 0;
-      },
-      (error)=>{console.error("ERROR! LOGIN FAILED!", error);
-    return 0;},
+  var data = this.loginForm.value;
+  console.log(data);
+  const url = "http://localhost/backend/login.php";
 
-    )
-
-    return 0;
-
-
-
+  interface MyResponse {
+    success: number;
   }
 
-  
 
-  async loginUser(){
+  this.http.post<MyResponse>(url, data, {responseType: "json"}).subscribe(
+    (response) => {
+      //console.log("TS Response = ", response["success"]);
 
-    const result = await this.checkIfLogInSuccessful();
+      if(response["success"] == 0){
+        // console.log("RESPONSE = 0");
+        this.showAlert(AlertType.ERROR,'Username or password is not correct!');
+      }
+      else{
+        var username = data["username"];
+        var fullname = data["fullname"];
+        var email = data["email"];
+        var subscription = data["subscription"];
+        var level = data["level"];
+        this.authService.authenticateUser(username, fullname, email);
+        this.closeModal();
+        this.showAlert(AlertType.SUCCESS,'Login Successful!');
+        setTimeout(() => {
+          // Reload the page after showing the notification
+          window.location.reload();
+        }, 1500);
+      }
 
-    if(result === 1){
-      console.log("THIS SHOULD LOG ME IN");
-      const username = this.loginForm.get('username')?.value;
-      this.authService.authenticateUser(username);
-      this.closeModal();
-      this.showAlert(AlertType.SUCCESS,'Login Successful!');
-      setTimeout(() => {
-        // Reload the page after showing the notification
-        window.location.reload();
-      }, 1500);
+
+    },
+    (error) => {
+      console.log("TS Error =", error);
     }
-    else{
-      console.log("login not working")
-    }
-    
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // loginUser(){
+  //   const url = "http://localhost/backend/login.php";
+  //   var data = this.loginForm.value;
+  //   console.log("DATA = " , data);
+
+    // interface MyResponse {
+    //   success: number;
+    // }
+
+
+  //   return new Promise((resolve, reject) => {
+  //     this.http.post<MyResponse>(url, data, { responseType: 'json' }).subscribe(
+  //       (response) => {
+  //         console.log("RESPONE =", response);
+          // const username = this.loginForm.get('username')?.value;
+          // this.authService.authenticateUser(username);
+  //         this.closeModal();
+  //         this.showAlert(AlertType.SUCCESS,'Login Successful!');
+  //         setTimeout(() => {
+  //           // Reload the page after showing the notification
+  //           window.location.reload();
+  //         }, 1500);
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //         reject(0);
+  //       }
+  //     );
+  //   });
+
+  // }
+
+
+
+  // async loginUser(){
+
+  //   const result = await this.checkIfLogInSuccessful();
+
+
+  //   if(result === 1){
+  //     console.log("THIS SHOULD LOG ME IN");
+  //     const username = this.loginForm.get('username')?.value;
+  //     this.authService.authenticateUser(username);
+  //     this.closeModal();
+  //     this.showAlert(AlertType.SUCCESS,'Login Successful!');
+  //     setTimeout(() => {
+  //       // Reload the page after showing the notification
+  //       window.location.reload();
+  //     }, 1500);
+  //   }
+  //   else{
+  //     console.log("login not working")
+  //   }
+
 
 
     // this.router.navigate(['/']);
 
-    
+
     // const url = "http://localhost/backend/login.php";
     // var data = this.loginForm.value;
     // console.log("DATA = " , data);
@@ -132,7 +219,7 @@ export class LoginPopUpComponent implements OnInit {
 
     // )
 
-  }
+  //}
 
   closeModal() {
     const loginModal = document.getElementById("loginModal");

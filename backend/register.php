@@ -51,31 +51,59 @@ $username = htmlspecialchars(trim($data->username));
 $email = htmlspecialchars(trim($data->email));
 $name = htmlspecialchars(trim($data->name));
 $password = htmlspecialchars(trim($data->password));
-//$confirm_password = htmlspecialchars(trim($data->confirmPassword));
+$confirm_password = htmlspecialchars(trim($data->confirmPassword));
+$subscription = "no_subscription";
+$level = "introduction";
 
-$query = "INSERT INTO `".$table_name."`(username, email, fullname, password)
-VALUES ('".$username."', '".$email."', '".$name."', '".$password."')";
+
+$can_insert = 1;
+
+if($password != $confirm_password) //check if pass and confirm pass are different or not
+$can_insert = 0;
+
+$search_email_query = "SELECT email FROM ".$table_name." WHERE email = '".$email."'";
 
 
-$stmt = $conn->prepare($query);
+$query_result = mysqli_query($conn, $search_email_query);
 
-if($stmt->execute()){
-    http_response_code(201);
+if(mysqli_num_rows($query_result) > 0) // if email already in db
+    $can_insert = 0;
 
-    echo json_encode([
-        'success' => "1",
-        "message" => "Successfully inserted"
-    ]);
+
+if($can_insert == 1){
+    $query = "INSERT INTO `".$table_name."`(username, email, fullname, password, subscription, level)
+    VALUES ('".$username."', '".$email."', '".$name."', '".$password."', '".$subscription."', '".$level."')";
     
+    
+    $stmt = $conn->prepare($query);
+    
+    if($stmt->execute()){
+        http_response_code(201);
+    
+        echo json_encode([
+            'success' => "1",
+            "message" => "Successfully inserted"
+        ]);
+        
+    }
+    else{
+        error_log("Error executing query: " . $stmt->error);
+        // Failure
+        echo json_encode([
+            "success" => 0,
+            "message" => "Insert failed!"
+        ]);
+    }
+
 }
 else{
-    error_log("Error executing query: " . $stmt->error);
-    // Failure
     echo json_encode([
         "success" => 0,
         "message" => "Insert failed!"
     ]);
 }
+
+   
 
 
 //echo "REGISTTTTTTTTTTTTTTTTTTTTER";

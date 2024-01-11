@@ -3,7 +3,7 @@
 function dbConnection(){
     $myServer = "localhost";
     $usernameConn = "root";
-    $passwordConn = "";
+    $passwordConn = "1234";
     $dbnameConn = "byteit_database";
     
     $conn = mysqli_connect($myServer, $usernameConn, $passwordConn, $dbnameConn);

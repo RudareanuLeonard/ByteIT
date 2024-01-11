@@ -1,28 +1,28 @@
 <header class="pt-2">
   <!--  <div class="nav-bar pb-4 pt-4">-->
-  <img class="logo" src="favicon.ico" alt="logo">
+  <img class="logo" src="assets/Photos/logo.png" alt="logo">
   <ul class="nav_links mt-3">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a [routerLink]="['/welcome']" (click)="showAlert(AlertType.WARNING,'Test page not available yet!')">Tests</a></li>
+    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
   </ul>
   <div class="right-buttons" *ngIf="!isLoggedIn()">
     <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
     <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
   </div>
   <div class="right-buttons" *ngIf="isLoggedIn()">
-    <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i><div class="settings">Settings</div></button>
+    <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active" style="margin-right: 3vh"><i class="fa-solid fa-user"></i><span class="settings">Profile Settings</span></button>
 
   </div>
 
-  <div class="toggle_btn" (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
+  <div class="toggle_btn" #toggleButton (click)="openDropDownMenu()"><i class="fa fa-bars"></i></div>
 
   <!--  </div>-->
 
-  <div class="dropdown_menu">
+  <div class="dropdown_menu" #menu>
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a href="">Tests</a></li>
+    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
     <div *ngIf="!isLoggedIn()">
       <div class="buttons-container">
         <button class="action_btn" (click)="openModal()">Login</button>
@@ -33,10 +33,10 @@
     </div>
     <div *ngIf="isLoggedIn()">
       <div class="buttons-container">
-        <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active"><i class="fa-solid fa-user"></i><div class="settings">Settings</div></button>
+        <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active"><i class="fa-solid fa-user"></i><span class="settings">Profile Settings</span></button>
       </div>
       <div class="buttons-container">
-        <button class="btn btn-danger logout_btn" (click)="logoutUser()" routerLinkActive="active"><i class="fa-solid fa-door-open"></i><div class="settings">Logout</div></button>
+        <button class="btn btn-danger logout_btn" (click)="logoutUser()" routerLinkActive="active"><i class="fa-solid fa-door-open"></i><span class="settings">Logout</span></button>
       </div>
     </div>
 
