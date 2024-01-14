@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {zoomInUpOnEnterAnimation} from "angular-animations";
 import {AuthenticationService} from "../services/authentication.service";
 import {Router} from "@angular/router";
@@ -24,7 +24,6 @@ export class NavBarComponent {
     private authService: AuthenticationService,
     private router: Router,
     private alertService: AlertService,
-    private renderer: Renderer2
   ) {
 
   }
@@ -55,12 +54,12 @@ export class NavBarComponent {
 
 
 
-    openModal(){
+  openLoginModal(){
       const loginModal = document.getElementById("loginModal");
       if(loginModal != null)
       loginModal.style.display = 'block';
 
-    }
+  }
 
   openSignUpModal(){
     const signupModal = document.getElementById("signupModal");

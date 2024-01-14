@@ -59,7 +59,12 @@ export class SignUpPopUpComponent implements OnInit{
       (response) => {
         console.log('Response:', response);
         this.closeModal();
-        this.showAlert(AlertType.SUCCESS,'Account created successfully!');
+
+        if(response.includes("failed")){
+          this.showAlert(AlertType.ERROR,'Signup failed! This username is already used!');
+        }
+        else
+          this.showAlert(AlertType.SUCCESS,'Account created successfully!');
       },
       (error)=>{
         console.error("ERROR! SIGNUP FAILED!", error);
@@ -71,25 +76,4 @@ export class SignUpPopUpComponent implements OnInit{
 
 
   }
-
-
-
-  // signupUser(){
-  //   alert("FORM SUBMITTED!");
-
-  //   if(this.signupForm.valid){
-  //     var url = "http://localhost/backend/register.php"; //need to change it to auto get the url, not hardcode it...
-  //     this.http.post(url, this.signupForm.value).subscribe(
-  //       response =>{console.log("Sign Up completed! Inserted");},
-  //       error => {console.error("Sign Up Failed! Not inserted!", error);}
-  //     )
-
-
-  //   }
-  // }
-
-  // signupUser(){
-  //   alert("FORM SUBMITTED");
-  // }
-
 }

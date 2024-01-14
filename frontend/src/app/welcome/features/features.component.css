@@ -11,7 +11,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 25px;
-  box-shadow: 0 8px 8px -4px #111;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 app-feature-box{
@@ -24,5 +24,5 @@ app-feature-box{
   border-radius: 10px;
   text-align: center;
   margin: 0 auto;
-  box-shadow: 0 3px 10px #111;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }

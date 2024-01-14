@@ -1,0 +1,16 @@
+.card{
+  margin: 0 auto;
+  width: 70%;
+  background-color: var(--background-color);
+  border:none;
+  user-select: none;
+}
+.course-title{
+  margin-bottom: 20px;
+  color:var(--white-text-color);
+  font-size: 2rem;
+  font-weight: 700;
+  padding:10px;
+  text-align: center;
+}
+

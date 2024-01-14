@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
     http_response_code(405);
     echo json_encode([
         'success' => 0,
-        'message' => "bad request! only acceptinhg post method on form\n"
+        'message' => "bad request! only accepting post method on form\n"
     ]);
 }
 

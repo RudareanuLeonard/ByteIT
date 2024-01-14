@@ -67,7 +67,7 @@ loginUser(){
 
       if(response["success"] == 0){
         // console.log("RESPONSE = 0");
-        this.showAlert(AlertType.ERROR,'Username or password is not correct!');
+        this.showAlert(AlertType.ERROR,'Username or password is incorrect!');
       }
       else{
         var username = data["username"];
@@ -75,19 +75,21 @@ loginUser(){
         var email = data["email"];
         var subscription = data["subscription"];
         var level = data["level"];
-        this.authService.authenticateUser(username, fullname, email);
+        this.authService.authenticateUser(username, fullname, email, subscription, level);
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {
           // Reload the page after showing the notification
           window.location.reload();
         }, 1500);
+        console.log("User: " + username + "\nName: " + fullname +"\nEmail: " + email + "\nSubscription: " + subscription, "\nLevel: " + level);
       }
 
 
     },
     (error) => {
       console.log("TS Error =", error);
+      this.showAlert(AlertType.ERROR,'Login Failed!');
     }
   );
 }

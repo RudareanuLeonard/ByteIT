@@ -4,10 +4,12 @@
   <ul class="nav_links mt-3">
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
+    <li><a [routerLink]="['/exercises']" routerLinkActive="active">Exercises</a></li>
+    <li><a [routerLink]="['/whiteboard']" routerLinkActive="active">Whiteboard</a></li>
+    <li><a [routerLink]="['/leaderboard']">Leaderboard</a></li>
   </ul>
   <div class="right-buttons" *ngIf="!isLoggedIn()">
-    <button class="action_btn" (click)="openModal()" style="margin-right: 3vh">Login</button>
+    <button class="action_btn" (click)="openLoginModal()" style="margin-right: 3vh">Login</button>
     <button class="action_btn" (click)="openSignUpModal()" style="margin-right: 3vh">Sign up</button>
   </div>
   <div class="right-buttons" *ngIf="isLoggedIn()">
@@ -22,10 +24,12 @@
   <div class="dropdown_menu" #menu>
     <li><a [routerLink]="['/welcome']" routerLinkActive="active">Welcome</a></li>
     <li><a [routerLink]="['/courses']" routerLinkActive="active">Courses</a></li>
-    <li><a [routerLink]="['/leaderboard']" (click)="showAlert(AlertType.WARNING,'Leaderboard not available yet!')">Leaderboard</a></li>
+    <li><a [routerLink]="['/exercises']" routerLinkActive="active">Exercises</a></li>
+    <li><a [routerLink]="['/whiteboard']" routerLinkActive="active">Whiteboard</a></li>
+    <li><a [routerLink]="['/leaderboard']">Leaderboard</a></li>
     <div *ngIf="!isLoggedIn()">
       <div class="buttons-container">
-        <button class="action_btn" (click)="openModal()">Login</button>
+        <button class="action_btn" (click)="openLoginModal()">Login</button>
       </div>
       <div class="buttons-container">
         <button class="action_btn" (click)="openSignUpModal()" >Sign up</button>
@@ -33,7 +37,7 @@
     </div>
     <div *ngIf="isLoggedIn()">
       <div class="buttons-container">
-        <button class="action_btn" [routerLink]="['/settings']" routerLinkActive="active"><i class="fa-solid fa-user"></i><span class="settings">Profile Settings</span></button>
+        <button class="action_btn" style="padding:0.5rem" [routerLink]="['/settings']" routerLinkActive="active"><i class="fa-solid fa-user"></i><span class="settings">Profile Settings</span></button>
       </div>
       <div class="buttons-container">
         <button class="btn btn-danger logout_btn" (click)="logoutUser()" routerLinkActive="active"><i class="fa-solid fa-door-open"></i><span class="settings">Logout</span></button>

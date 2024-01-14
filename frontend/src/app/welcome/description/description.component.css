@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 8px -4px #111;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 
 }
 .photo {
@@ -21,7 +21,7 @@
   height: auto;
   border-radius: 10px;
   opacity: .9;
-  box-shadow: 0 3px 10px #333;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 
 }
 

@@ -28,7 +28,7 @@ body{
 
 [data-theme="light"] {
   --background-color : #ffffff;
-  --darker-background-color : #ffffff;
+  --darker-background-color : #f1f1f1;
   --white-text-color : #24252A;
   --blue-color : #0088a9;
   --dark-blue-color : #001438;

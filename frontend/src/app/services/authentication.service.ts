@@ -1,8 +1,5 @@
 import {Injectable} from '@angular/core';
 import {User} from "../entities/user";
-import {Subscriptions} from "../enums/subscriptions";
-import {Levels} from "../enums/levels";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,17 +22,18 @@ export class AuthenticationService {
     this._loggedUser = value;
   }
 
-  authenticateUser(fullname: string, username: string, email: string){
+  authenticateUser(fullname: string, username: string, email: string, subscription: number, level: number){
     let loggedUser:User = {
       id:1,
       username:username,
       name:fullname,
       email:email,
-      subscription:Subscriptions.NONE,
-      level:Levels.BEGINNER,
+      subscription:subscription,
+      level:level,
       pictureUrl:"https://robohash.org/hehehe?bgset=bg1"
     }
     localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+
   }
 
   logout(): void {

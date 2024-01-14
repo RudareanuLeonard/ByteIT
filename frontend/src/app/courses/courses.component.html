@@ -1,5 +1,5 @@
 
-<div *ngIf="1" [@slideInUpOnEnter] class="category-selection">
+<div [@slideInUpOnEnter]="1" class="category-selection">
   <i (click)="left()" class="fa-solid fa-arrow-left"></i>
   <span  id="category" class="category">{{categoryList[currentValue]}}</span>
   <i (click)="right()" class="fa-solid fa-arrow-right"></i>
@@ -8,7 +8,7 @@
 
 <div *ngIf="animationState" [@slideInUpOnEnter] class="courses-container" id="courses-container">
   <app-course-box *ngFor="let course of coursesList" (click)='openCourse(course)'
-    [course] = "course"
+                  [course] = "course"
   ></app-course-box>
 
 </div>

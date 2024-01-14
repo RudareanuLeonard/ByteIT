@@ -21,6 +21,9 @@
   margin: 0 auto;
   text-align: center;
   padding: 0 20px;
+  background-color: var(--darker-background-color);
+  border-radius: 10px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 
 .category-selection i {
@@ -52,7 +55,7 @@ app-course-box{
   text-align: center;
   margin: 0 auto;
   cursor: pointer;
-  box-shadow: 0 3px 10px #111;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
   transition: all 0.5s ease 0s;
   user-select: none;
 

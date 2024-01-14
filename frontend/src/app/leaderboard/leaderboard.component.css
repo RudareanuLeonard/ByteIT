@@ -1,0 +1,12 @@
+table-container{
+  width: 70%;
+}
+table {
+
+  background-color: var(--darker-background-color);
+
+}
+
+table th, td{
+  color:var(--white-text-color);
+}

@@ -21,7 +21,14 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxTypedJsModule} from 'ngx-typed-js';
 import { AlertComponent } from './alert/alert.component';
-import { WhiteboardComponent } from './whiteboard/whiteboard.component';
+import { CourseChapterComponent } from './courses/course-page/course-chapter/course-chapter.component';
+import { CourseContentComponent } from './courses/course-page/course-content/course-content.component';
+import {MatTableModule} from "@angular/material/table";
+import { EditProfilePopUpComponent } from './edit-profile-pop-up/edit-profile-pop-up.component';
+import { SubscriptionPopUpComponent } from './subscription-pop-up/subscription-pop-up.component';
+import { ExerciseComponent } from './exercises/exercise/exercise.component';
+import { ExerciseContentComponent } from './exercises/exercise-content/exercise-content.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +43,12 @@ import { WhiteboardComponent } from './whiteboard/whiteboard.component';
     CoursePageComponent,
     SignUpPopUpComponent,
     UserSettingsComponent,
-    WhiteboardComponent,
+    CourseChapterComponent,
+    CourseContentComponent,
+    EditProfilePopUpComponent,
+    SubscriptionPopUpComponent,
+    ExerciseComponent,
+    ExerciseContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +60,8 @@ import { WhiteboardComponent } from './whiteboard/whiteboard.component';
     HttpClientModule,
     NgxTypedJsModule,
     AlertComponent,
-    NgWhiteboardModule
+    NgWhiteboardModule,
+    MatTableModule
 
   ],
   providers: [],

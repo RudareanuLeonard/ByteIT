@@ -1,0 +1,11 @@
+<div class="chapter-header" (click)="toggle()">
+  <div class="header-title">
+    {{title}}
+  </div>
+  <div [@rotatedState]="!showContent? 'default': 'rotated'" class="arrow"><i class="ion-ios-arrow-down"></i></div>
+</div>
+<div [@smoothCollapse]="!showContent? 'initial': 'final'">
+  <div class="chapter-content">
+    <ng-content></ng-content>
+  </div>
+</div>
