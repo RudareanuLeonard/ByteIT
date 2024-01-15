@@ -1,34 +1,66 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CoursesService} from "../services/courses.service";
 import {Course} from "../entities/course";
-import {slideInUpOnEnterAnimation} from "angular-animations";
+import {slideInUpOnEnterAnimation, slideOutDownOnLeaveAnimation} from "angular-animations";
 import {Router} from "@angular/router";
+import {Levels} from "../enums/levels";
 
 
 @Component({
   selector: 'app-courses',
   animations:[
-    slideInUpOnEnterAnimation({duration:650})
+    slideInUpOnEnterAnimation({duration:300, delay:300}),
+    slideOutDownOnLeaveAnimation({duration:300})
 
   ],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit{
   categoryList = ["Introduction Courses", "Beginner Courses", "Intermediate Courses", "Advanced Courses"]
   currentValue = 0;
   animationState:boolean = false;
 
-  allCoursesList: Course[] = [];
   coursesList: Course[] = [];
 
   constructor(private coursesServices: CoursesService, private router: Router) {
-    this.allCoursesList = coursesServices.coursesList;
-    this.coursesList = this.allCoursesList.filter((obj) =>{
-      return obj.level == this.currentValue;
-    })
     this.animate();
+
   }
+
+  number(level:Levels){
+    let nr;
+    if(level == "introduction")
+    {
+      nr = 0;
+    }
+    else if(level == "beginner"){
+      nr = 1;
+    }
+    else if(level == "intermediate"){
+      nr = 2;
+    }
+    else if(level == "advanced"){
+      nr = 3;
+    }
+    else{
+      nr = 0;
+    }
+    return nr == this.currentValue;
+  }
+  ngOnInit(): void {
+
+    this.coursesServices.getAllCourses();
+    localStorage.setItem("coursesList", JSON.stringify(this.coursesServices.coursesList));
+
+    this.coursesList = this.coursesServices.coursesList.filter((obj) =>{
+      return this.number(obj.level);
+
+    })
+
+  }
+
+
 
   animate(){
     this.animationState = false;
@@ -41,8 +73,8 @@ export class CoursesComponent {
     if (this.currentValue < this.categoryList.length - 1) {
       this.currentValue++;
       this.animate();
-      this.coursesList = this.allCoursesList.filter((obj) =>{
-        return obj.level == this.currentValue;
+      this.coursesList = this.coursesServices.coursesList.filter((obj) =>{
+        return this.number(obj.level);
 
       })
     }
@@ -52,14 +84,16 @@ export class CoursesComponent {
     if (this.currentValue > 0) {
       this.currentValue--;
       this.animate();
-      this.coursesList = this.allCoursesList.filter((obj) =>{
-        return obj.level == this.currentValue;
+      this.coursesList = this.coursesServices.coursesList.filter((obj) =>{
+        return this.number(obj.level);
       })
     }
   }
 
   openCourse(course:Course){
-    this.router.navigate(['/courses',course.title]);
+    this.router.navigate(['/courses',course.name]);
   }
+
+
 }
 

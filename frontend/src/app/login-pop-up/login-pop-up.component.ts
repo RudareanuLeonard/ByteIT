@@ -5,6 +5,7 @@ import {AuthenticationService} from "../services/authentication.service";
 import {AlertType} from "../enums/alert-type";
 import {AlertService} from "../services/alert.service";
 import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-pop-up',
@@ -17,13 +18,16 @@ import { HttpClient } from '@angular/common/http';
 export class LoginPopUpComponent implements OnInit {
   loginForm!: FormGroup;
 
+
+
   animationState: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private alertService: AlertService,
-    private http:HttpClient
+    private http:HttpClient,
+    private router: Router
   ) {
     this.animate();
   }
@@ -71,18 +75,25 @@ loginUser(){
       }
       else{
         var username = data["username"];
-        var fullname = data["fullname"];
-        var email = data["email"];
-        var subscription = data["subscription"];
-        var level = data["level"];
-        this.authService.authenticateUser(username, fullname, email, subscription, level);
+        const observable$ = this.authService.authenticateUser(username);
+        observable$.subscribe(loggedUser => {
+          this.authService.loggedUser = loggedUser.data[0];
+          localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
+        console.log(this.authService.loggedUser);
+        })
+
+        
+
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {
-          // Reload the page after showing the notification
-          window.location.reload();
+
         }, 1500);
-        console.log("User: " + username + "\nName: " + fullname +"\nEmail: " + email + "\nSubscription: " + subscription, "\nLevel: " + level);
+        // Reload the page after showing the notification
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
       }
 
 

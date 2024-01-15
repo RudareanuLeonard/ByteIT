@@ -25,9 +25,9 @@ export class SignUpPopUpComponent implements OnInit{
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       username: ['', Validators.required],
+      name: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required],
-      name: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
   }

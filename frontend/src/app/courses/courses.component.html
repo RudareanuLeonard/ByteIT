@@ -6,7 +6,7 @@
 
 </div>
 
-<div *ngIf="animationState" [@slideInUpOnEnter] class="courses-container" id="courses-container">
+<div *ngIf="animationState" [@slideOutDownOnLeave] [@slideInUpOnEnter] class="courses-container" id="courses-container">
   <app-course-box *ngFor="let course of coursesList" (click)='openCourse(course)'
                   [course] = "course"
   ></app-course-box>

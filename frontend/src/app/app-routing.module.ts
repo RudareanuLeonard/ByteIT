@@ -7,12 +7,14 @@ import {UserSettingsComponent} from "./user-settings/user-settings.component";
 import {LeaderboardComponent} from "./leaderboard/leaderboard.component";
 import {WhiteboardComponent} from "./whiteboard/whiteboard.component";
 import {ExercisesComponent} from "./exercises/exercises.component";
+import {CompilerComponent} from "./compiler/compiler.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'courses', component: CoursesComponent},
-  {path: 'courses/:title', component: CoursePageComponent},
+  {path: 'courses/:name', component: CoursePageComponent},
   {path: 'exercises', component: ExercisesComponent},
+  {path: 'compiler', component: CompilerComponent},
   {path: 'whiteboard', component: WhiteboardComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'settings', component: UserSettingsComponent},
@@ -26,4 +28,13 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [WelcomeComponent, CoursesComponent,CoursePageComponent, UserSettingsComponent, LeaderboardComponent, WhiteboardComponent, ExercisesComponent]
+export const routingComponents = [
+  WelcomeComponent,
+  CoursesComponent,
+  CoursePageComponent,
+  UserSettingsComponent,
+  LeaderboardComponent,
+  WhiteboardComponent,
+  ExercisesComponent,
+  CompilerComponent
+]

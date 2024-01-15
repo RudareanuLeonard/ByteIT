@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {slideInUpOnEnterAnimation} from "angular-animations";
+import {AuthenticationService} from "../services/authentication.service";
+import {User} from "../entities/user";
+import {Observable} from "rxjs";
 
 export interface TableHeaders {
-  position: number;
-  photo:string;
   name: string;
   level: string;
-  problemsSolved: number;
+  exercisesSolved: number;
 }
 const TABLE_DATA: TableHeaders[] = [
-  {position: 1, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'vasile', level: "BEGINNER", problemsSolved: 33},
-  {position: 2, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'ion', level: "BEGINNER", problemsSolved: 31},
-  {position: 3, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'john_doe', level: "BEGINNER", problemsSolved: 29},
-  {position: 4, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'gigi', level: "BEGINNER", problemsSolved: 24},
-  {position: 5, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'ionela', level: "BEGINNER", problemsSolved: 21},
-  {position: 6, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'marcel', level: "BEGINNER", problemsSolved: 13},
-  {position: 7, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'viorel', level:"BEGINNER", problemsSolved: 9},
-  {position: 8, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'petru', level: "BEGINNER", problemsSolved: 6},
-  {position: 9, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'maria', level: "BEGINNER", problemsSolved: 4},
-  {position: 10, photo:"https://robohash.org/hehehe?bgset=bg1", name: 'florin', level: "BEGINNER", problemsSolved: 3},
+  {name: 'vasile', level: "BEGINNER", exercisesSolved: 33},
+  {name: 'ion', level: "BEGINNER", exercisesSolved: 31},
+  {name: 'john_doe', level: "BEGINNER", exercisesSolved: 29},
+  {name: 'gigi', level: "BEGINNER", exercisesSolved: 24},
+  {name: 'ionela', level: "BEGINNER", exercisesSolved: 21},
+  {name: 'marcel', level: "BEGINNER", exercisesSolved: 13},
+  {name: 'viorel', level:"BEGINNER", exercisesSolved: 9},
+  {name: 'petru', level: "BEGINNER", exercisesSolved: 6},
+  {name: 'maria', level: "BEGINNER", exercisesSolved: 4},
+  {name: 'florin', level: "BEGINNER", exercisesSolved: 3},
 ];
 @Component({
   selector: 'app-leaderboard',
@@ -28,7 +29,27 @@ const TABLE_DATA: TableHeaders[] = [
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.css']
 })
-export class LeaderboardComponent {
-  displayedColumns: string[] = ['position', 'photo', 'name', 'level', 'problemsSolved'];
-  dataSource = TABLE_DATA;
+export class LeaderboardComponent implements OnInit{
+  displayedColumns: string[] = ['position', 'photo', 'name', 'level', 'exercisesSolved'];
+  dataSource = TABLE_DATA
+
+  allUsers$: Observable<User[]> | undefined;
+
+  users:User[] = [];
+
+  constructor(
+    private authService: AuthenticationService
+  ) {}
+
+
+  ngOnInit(): void {
+    this.allUsers$ = this.authService.getAllUsers()
+
+    const observable$ = this.authService.getAllUsers()
+    observable$.subscribe(users => {
+      this.users = users.data;
+      console.log(this.users);
+    })
+
+  }
 }

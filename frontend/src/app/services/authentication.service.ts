@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {User} from "../entities/user";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -7,7 +9,9 @@ export class AuthenticationService {
   private loggedIn = false;
   // @ts-ignore
   private _loggedUser: any = JSON.parse(localStorage.getItem("loggedUser"));
-  constructor() { }
+  constructor(
+    private http:HttpClient,
+  ) { }
 
   isLoggedIn() {
     this.loggedIn = localStorage.getItem("loggedUser") != null;
@@ -22,18 +26,15 @@ export class AuthenticationService {
     this._loggedUser = value;
   }
 
-  authenticateUser(fullname: string, username: string, email: string, subscription: number, level: number){
-    let loggedUser:User = {
-      id:1,
-      username:username,
-      name:fullname,
-      email:email,
-      subscription:subscription,
-      level:level,
-      pictureUrl:"https://robohash.org/hehehe?bgset=bg1"
-    }
-    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+  authenticateUser(username: string){
+    const url = "http://localhost/backend/user-settings.php?username=" + username;
+    return this.http.get<any>(url);
+  }
 
+  getLoggedUser():Observable<User>{
+    const username = this.loggedUser.username;
+    const url = "http://localhost/backend/user-settings.php?username=" + username;
+    return this.http.get<User>(url);
   }
 
   logout(): void {
@@ -41,6 +42,13 @@ export class AuthenticationService {
     localStorage.removeItem("loggedUser");
     // this.notificationService.showDefaultNotification("Logged out successfully")
   }
+
+  getAllUsers(){
+      const url = "http://localhost/backend/leaderboard.php";
+
+      return this.http.get<any>(url);
+  }
+
 }
 
 

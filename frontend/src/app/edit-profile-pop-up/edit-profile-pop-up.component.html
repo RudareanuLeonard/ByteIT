@@ -11,15 +11,15 @@
       <!-- Modal body -->
       <form class="modal-body" [formGroup]="editProfileForm" novalidate>
 
-        <input type="text" id="username" class="form-control" formControlName="username" placeholder="Username" required>
+        <input type="text" id="username-editProfile" class="form-control" formControlName="username" placeholder="Username" readonly>
         <br>
-        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email" required>
+        <input type="email" id="email-editProfile" class="form-control" formControlName="email" placeholder="Email" required>
         <br>
-        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Name" required>
+        <input type="text" id="name-editProfile" class="form-control" formControlName="name" placeholder="Name" required>
         <br>
-        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password" required>
+        <input type="password" id="password-editProfile" class="form-control" formControlName="password" placeholder="Password" required>
         <br>
-        <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password" id="confirmPassword-editProfile" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password" required>
         <br>
       </form>
 

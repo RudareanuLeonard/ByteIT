@@ -22,27 +22,18 @@ $dbname_conn = "byteit_database";
 $conn = mysqli_connect($my_server, $username_conn, $password_conn, $dbname_conn);
 
 
+$table_name = 'exercises';
+$sql = "SELECT * from ".$table_name."";
+
 $datas = [];
-$table_name = 'users';
-
-
-
-$get_username = $_GET["username"];
-
-$sql = "SELECT * from ".$table_name." WHERE username = '".$get_username."'";
 
 if($result = mysqli_query($conn,$sql)){
     $cr = 0;
     while($row = mysqli_fetch_assoc($result)){
-        $datas[$cr]['id'] = $row['id'];
-        $datas[$cr]['fullname'] = $row['fullname'];
-        $datas[$cr]['email'] = $row['email'];
-        $datas[$cr]['username'] = $row['username'];
-        $datas[$cr]['password'] = $row['password'];
-        // $datas[$cr]['picture_url'] = $row['picture_url'];
-        $datas[$cr]['subscription'] = $row['subscription'];
-        $datas[$cr]['level'] = $row['level'];
-        $datas[$cr]['exercises_solved'] = $row['exercises_solved'];
+      $datas[$cr]['title'] = $row['title'];
+      // $datas[$cr]['picture_url'] = $row['picture_url'];
+      $datas[$cr]['description'] = $row['description'];
+      $datas[$cr]['solution'] = $row['solution'];
         
         $cr = $cr + 1;
     }

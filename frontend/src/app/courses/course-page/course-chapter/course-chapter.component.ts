@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {AlertType} from "../../../enums/alert-type";
+import {AlertService} from "../../../services/alert.service";
 
 @Component({
   selector: 'app-course-chapter',
@@ -30,9 +33,29 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class CourseChapterComponent {
   @Input() title: string = '';
   showContent = false;
+  loggedUser: any;
+  constructor(
+    private authService: AuthenticationService,
+    private alertService: AlertService
+  ) {
+    this.loggedUser = this.authService.loggedUser;
+  }
 
+  showAlert(type:AlertType, text:String){
+    this.alertService.setAlert({
+      type: type,
+      text : text,
+    });
+  }
 
   toggle(){
-    this.showContent = !this.showContent;
+    if(this.title == "Introduction")
+      this.showContent = !this.showContent;
+    else if(this.loggedUser.subscription != "no_subscription"){
+      this.showContent = !this.showContent;
+    }
+    else{
+      this.showAlert(AlertType.INFO,'Upgrade your subscription to access courses content!');
+    }
   }
 }

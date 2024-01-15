@@ -1,1 +1,19 @@
-<ng-whiteboard></ng-whiteboard>
+<div class="whiteboard-container">
+  <ng-whiteboard (mousemove)="eraseContent($event)">
+
+    <canvas #whiteboardCanvas></canvas>
+
+  </ng-whiteboard>
+</div>
+
+
+<!-- <form>
+    <button style="background-color: red;" (onClick)="refreshPage()">ERASE ALL</button>
+</form> -->
+
+<div class="erasers">
+
+  <button class="btn btn-danger" (click)="refreshPage()">ERASE ALL</button>
+</div>
+
+

@@ -27,7 +27,7 @@ import {MatTableModule} from "@angular/material/table";
 import { EditProfilePopUpComponent } from './edit-profile-pop-up/edit-profile-pop-up.component';
 import { SubscriptionPopUpComponent } from './subscription-pop-up/subscription-pop-up.component';
 import { ExerciseComponent } from './exercises/exercise/exercise.component';
-import { ExerciseContentComponent } from './exercises/exercise-content/exercise-content.component';
+import { ExercisesContainerComponent } from './exercises/exercises-container/exercises-container.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { ExerciseContentComponent } from './exercises/exercise-content/exercise-
     EditProfilePopUpComponent,
     SubscriptionPopUpComponent,
     ExerciseComponent,
-    ExerciseContentComponent,
+    ExercisesContainerComponent,
   ],
   imports: [
     BrowserModule,

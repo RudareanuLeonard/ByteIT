@@ -4,10 +4,11 @@ import {Levels} from "../enums/levels";
 export interface User {
   id: number
   username:string
-  name: string
+  fullname: string
   email: string
   subscription: Subscriptions
   level:Levels
-  pictureUrl : string
+  picture_url : string
+  exercises_solved : number
 
 }

@@ -2,15 +2,16 @@
   <div class="profile-header">
     <div class="user-details-card">
       <div class="user-picture-container">
-        <img class="user-picture" src="{{loggedUser.pictureUrl}}" alt="User Picture">
+        <img class="user-picture" src="https://robohash.org/hehehe?bgset=bg1" alt="https://robohash.org/hehehe?bgset=bg1">
         <div class="change-photo">Change Photo</div>
       </div>
       <div class="user-details">
-        <h2 class="user-name" id="user-username">{{loggedUser.name}}</h2>
-        <p class="user-role">Full Name: {{loggedUser.name}}</p>
+        <h2 class="user-name" id="user-username">{{loggedUser.username}}</h2>
+        <p class="user-role">Full Name: {{loggedUser.fullname}}</p>
         <p class="email">Email: {{loggedUser.email}}</p>
-        <p class="user-role">Level: {{Levels[loggedUser.level]}}</p>
-        <p class="user-role">Subscription: {{Subscriptions[loggedUser.subscription]}}</p>
+        <p class="user-role">Level: {{loggedUser.level}}</p>
+        <p class="user-role">Subscription: {{loggedUser.subscription}}</p>
+        <p class="user-role">Exercises solved: {{loggedUser.exercises_solved}}</p>
         <button type="button" class="btn info" data-bs-dismiss="modal" (click)="openSubscriptionModal()">Subscription</button>
         <button type="button" class="btn info" data-bs-dismiss="modal" (click)="openEditProfileModal()">Edit Profile</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logoutUser()">Logout</button>

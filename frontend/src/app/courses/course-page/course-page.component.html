@@ -1,13 +1,11 @@
 <div [@slideInUpOnEnter]="1" class="card">
-  <div class="course-title">{{courseTitle}}</div>
+  <div class="course-title">{{course?.name}}</div>
 
   <app-course-content>
-    <app-course-chapter title="Introduction">{{content01}}<br><br>{{content02}}<br><br>{{content03}}</app-course-chapter>
-    <app-course-chapter title="Chapter 2">{{content02}}<br><br>{{content03}}</app-course-chapter>
-    <app-course-chapter title="Chapter 3">{{content03}}<br><br>{{content01}}<br><br>{{content02}}</app-course-chapter>
-    <app-course-chapter title="Chapter 4">{{content03}}</app-course-chapter>
+    <app-course-chapter title="Introduction">{{course?.description}}</app-course-chapter>
+    <app-course-chapter title="Chapter 1">{{content02}}<br><br>{{content03}}</app-course-chapter>
+    <app-course-chapter title="Chapter 2">{{content03}}<br><br>{{content01}}<br><br>{{content02}}</app-course-chapter>
+    <app-course-chapter title="Chapter 3">{{content03}}</app-course-chapter>
     <app-course-chapter title="Conclusion">{{content01}}</app-course-chapter>
   </app-course-content>
 </div>
-
-

@@ -1,5 +1,6 @@
-table-container{
+.table-container{
   width: 70%;
+  margin: 0 auto;
 }
 table {
 

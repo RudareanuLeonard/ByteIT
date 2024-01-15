@@ -1,4 +1,11 @@
-ng-whiteboard{
+.whiteboard-container{
   width: 100%;
-  height: 87.5vh;
+  height: 83.5vh;
+  border: 2px solid var(--darker-background-color);
+}
+.erasers{
+  margin: 10px 10px 10px 0;
+  display: flex;
+}
+.erasers button{
 }

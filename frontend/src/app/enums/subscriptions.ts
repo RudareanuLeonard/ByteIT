@@ -1,5 +1,5 @@
 export enum Subscriptions {
-  NONE,
-  MONTHLY,
-  YEARLY
+  NONE="no_subscription",
+  MONTHLY="basic",
+  YEARLY="premium"
 }
