@@ -87,6 +87,7 @@ loginUser(){
         this.closeModal();
         this.showAlert(AlertType.SUCCESS,'Login Successful!');
         setTimeout(() => {
+          window.location.reload();
 
         }, 1500);
         // Reload the page after showing the notification

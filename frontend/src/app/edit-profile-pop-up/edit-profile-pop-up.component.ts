@@ -54,14 +54,16 @@ export class EditProfilePopUpComponent {
         if(response.includes("failed")){
           this.showAlert(AlertType.ERROR,'There was an error editing your profile. Please try again!');
         }
-        else
+        else{
+
+        
           this.showAlert(AlertType.SUCCESS,'Profile Updated Successfully!');
 
           this.authService.loggedUser.fullname = this.editProfileForm.value.name;
           this.authService.loggedUser.email = this.editProfileForm.value.email;
           this.authService.loggedUser.password = this.editProfileForm.value.password;
           localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
-
+        }
         const currentUrl = this.router.url;
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate([currentUrl]);
