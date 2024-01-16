@@ -64,6 +64,7 @@ export class SubscriptionPopUpComponent {
 
         this.authService.loggedUser.subscription = this.subscriptionForm.value.subscription;
         localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
+
         const currentUrl = this.router.url;
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate([currentUrl]);

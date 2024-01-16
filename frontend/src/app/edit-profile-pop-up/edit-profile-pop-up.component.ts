@@ -61,6 +61,7 @@ export class EditProfilePopUpComponent {
           this.authService.loggedUser.email = this.editProfileForm.value.email;
           this.authService.loggedUser.password = this.editProfileForm.value.password;
           localStorage.setItem("loggedUser", JSON.stringify(this.authService.loggedUser));
+
         const currentUrl = this.router.url;
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate([currentUrl]);

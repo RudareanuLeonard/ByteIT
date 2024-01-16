@@ -26,13 +26,14 @@ $conn = mysqli_connect($my_server, $username_conn, $password_conn, $dbname_conn)
 $data = json_decode(file_get_contents("php://input"));
 
 $username = htmlspecialchars(trim($data->username));
-$subscription = htmlspecialchars(trim($data->subscription));
+$title = htmlspecialchars(trim($data->title));
+$solution = htmlspecialchars(trim($data->solution));
 
 
 $can_update = 1;
 
-$table_name = "users";
-$search_email_query = "SELECT * FROM ".$table_name." WHERE username = '".$username."'";
+$table_name = "exercises";
+$search_email_query = "SELECT * FROM ".$table_name." WHERE title = '".$title."' AND solution = '".$solution."'";
 
 $query_result = mysqli_query($conn, $search_email_query);
 
@@ -40,17 +41,19 @@ if (mysqli_num_rows($query_result) === 0) {
     $can_update = 0;
 }
 
+$table_name = "users";
+
 if ($can_update == 1) {
-    $update_query = "UPDATE ".$table_name." SET subscription = ? WHERE username = ?";
+    $update_query = "UPDATE ".$table_name." SET exercises_solved = exercises_solved + 1 WHERE username = ?";
     
     $stmt = $conn->prepare($update_query);
-    $stmt->bind_param("ss", $subscription, $username);
+    $stmt->bind_param("s", $username);
 
     if ($stmt->execute()) {
         http_response_code(200);
         echo json_encode([
-            'success' => 1,
-            'message' => 'Successfully updated'
+            'success' => "1",
+            'message' => "Successfully updated"
         ]);
     } 
     else {

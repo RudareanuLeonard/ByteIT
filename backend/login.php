@@ -44,20 +44,13 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 $data = json_decode(file_get_contents("php://input"));
 
 $username = htmlspecialchars(trim($data->username));
-// echo "\n<script>THE USERNAME = </script>".$username;
 $password = htmlspecialchars(trim($data->password));
-// echo "\n<script>THE PASSWORD = </script>".$password;
 $table_name = "users";
 
 $query = "SELECT * from ".$table_name." WHERE username = '".$username."' AND password = '".$password."'";
 
 $query_result = mysqli_query($conn, $query);
 
-// $stmt = $conn->prepare($query);
-
-// $result = $stmt->execute();
-
-// echo("\n\n\n\n<script>console.log('RESULT OF QUERY = ')".$result."</script>\n\n\n\n");
 
 if(mysqli_num_rows($query_result) > 0){
     http_response_code(201);

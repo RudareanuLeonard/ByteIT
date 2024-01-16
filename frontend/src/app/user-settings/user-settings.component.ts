@@ -30,7 +30,6 @@ export class UserSettingsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
     this.loggedUser = this.authService.loggedUser;
     console.log(this.loggedUser);
 

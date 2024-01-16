@@ -5,7 +5,7 @@
     <app-exercise *ngFor="let exercise of exercisesList" title="{{exercise.title}}">
       {{exercise.description}}
       <div class="compile-container">
-        <button class="btn btn-info" [routerLink]="['/compiler']" routerLinkActive="active">Compile</button>
+        <button class="btn btn-info" [routerLink]="['/compiler',exercise.title]" routerLinkActive="active">Compile</button>
       </div>
     </app-exercise>
   </app-exercises-container>

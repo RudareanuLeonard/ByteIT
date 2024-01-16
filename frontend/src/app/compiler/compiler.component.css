@@ -1,0 +1,50 @@
+*{margin: 0;}
+
+.header {
+  background: var(--background-color);
+  text-align: left;
+  font-size: 20px;
+  color: white;
+  padding: 4px;
+}
+
+.control-panel {
+  background: var(--background-color);
+  text-align: right;
+  padding: 4px;
+  font-family: sans-serif;
+}
+
+.languages {
+  background: var(--darker-background-color);
+  border: 1px solid gray;
+}
+
+#editor { height: 400px; }
+
+.button-container {
+  text-align: right;
+  padding: 4px;
+}
+
+.btn {
+  background-color: var(--blue-color);
+  color:var(--white-text-color);
+  padding: 8px;
+  border: 0;
+  transition: scale 0.3s;
+}
+.btn:hover{
+  scale: 1.05;
+}
+
+.output {
+  color:var(--white-text-color);
+  padding: 4px;
+  border: 2px solid var(--darker-background-color);
+  border-radius: 3px;
+  min-height: 100px;
+  width: 100%;
+  resize: none;
+
+}

@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'courses', component: CoursesComponent},
   {path: 'courses/:name', component: CoursePageComponent},
   {path: 'exercises', component: ExercisesComponent},
-  {path: 'compiler', component: CompilerComponent},
+  {path: 'compiler/:title', component: CompilerComponent},
   {path: 'whiteboard', component: WhiteboardComponent},
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'settings', component: UserSettingsComponent},

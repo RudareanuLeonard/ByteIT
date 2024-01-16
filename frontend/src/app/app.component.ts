@@ -18,7 +18,6 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit(): void {
-    // localStorage.clear()
     if (this.currentTheme) {
       document.documentElement.setAttribute('data-theme', this.currentTheme);
     }
